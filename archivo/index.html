@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KOMOREBI — Archive</title>
+
+    <link rel="stylesheet" href="archivo.css">
+    <script src="archivo.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ===================================
+         NAVEGACIÓN PRINCIPAL
+    =================================== -->
+
+    <header class="cabecera">
+
+        <a href="../index.html#home" class="logo">KKK</a>
+
+        <nav class="navegacion" aria-label="Main navigation">
+
+            <div class="grupo-nav">
+                <a href="../index.html#home">Home</a>
+                <a href="../index.html#project">Project</a>
+                <a href="../index.html#creator">About Creator</a>
+            </div>
+
+            <div class="grupo-nav">
+                <a href="../generador-mapas/index.html">
+                    Create your Komorebi map
+                </a>
+                <a href="index.html" class="activo"
+                   aria-current="page">
+                    Archive Komorebi
+                </a>
+            </div>
+
+        </nav>
+
+    </header>
+
+    <main class="archivo">
+
+        <!-- ===================================
+             FILTROS DEL ARCHIVO
+        =================================== -->
+
+        <nav class="filtros-archivo"
+             aria-label="Archive filters">
+
+            <button
+                type="button"
+                class="filtro activo"
+                data-filtro="Recents"
+                aria-pressed="true">
+                Recents
+            </button>
+
+            <button
+                type="button"
+                class="filtro"
+                data-filtro="Tokyo"
+                aria-pressed="false">
+                Tokyo
+            </button>
+
+            <button
+                type="button"
+                class="filtro"
+                data-filtro="Kyoto"
+                aria-pressed="false">
+                Kyoto
+            </button>
+
+            <button
+                type="button"
+                class="filtro"
+                data-filtro="Osaka"
+                aria-pressed="false">
+                Osaka
+            </button>
+
+            <button
+                type="button"
+                class="filtro"
+                data-filtro="Hokkaidō"
+                aria-pressed="false">
+                Hokkaidō
+            </button>
+
+            <button
+                type="button"
+                class="filtro"
+                data-filtro="Okinawa"
+                aria-pressed="false">
+                Okinawa
+            </button>
+
+        
+
+        </nav>
+
+        <!-- ===================================
+             VÍDEO PRINCIPAL DEL TERRITORIO
+        =================================== -->
+
+        <section
+            id="territorio-destacado"
+            class="territorio-destacado"
+            aria-label="Territory map"
+            hidden
+        >
+            <div
+                id="mapa-territorial"
+                class="mapa-territorial">
+            </div>
+        </section>
+
+        <!-- ===================================
+             TÍTULO DE LA GALERÍA
+        =================================== -->
+
+        <h2
+            id="titulo-galeria"
+            class="titulo-galeria"
+            hidden>
+        </h2>
+
+
+        <!-- ===================================
+             GALERÍA DE MAPAS
+        =================================== -->
+
+        <section
+            id="galeria-archivo"
+            class="galeria-archivo"
+            aria-label="Komorebi maps">
+        </section>
+
+        <p id="mensaje-vacio"
+           class="mensaje-vacio"
+           hidden>
+            No maps available in this category yet.
+        </p>
+
+    </main>
+
+</body>
+
+</html>

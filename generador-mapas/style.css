@@ -1,0 +1,1289 @@
+
+/* ===================================
+   TIPOGRAFÍAS
+=================================== */
+
+@font-face {
+    font-family: "Gontserrat";
+    src: url("../fuentes/Gontserrat-Regular.ttf");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Gontserrat";
+    src: url("../fuentes/Gontserrat-Bold.ttf");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "CxMono";
+    src: url("../fuentes/CxMonoTrial-Regular.ttf");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "CxMono";
+    src: url("../fuentes/CxMonoTrial-Medium.ttf");
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+/* ===================================
+   CONFIGURACIÓN GENERAL
+=================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    background: #ffffff;
+    color: #000000;
+    font-family: "Gontserrat", sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+
+/* ===================================
+   CABECERA
+=================================== */
+
+.cabecera {
+    width: 100%;
+    height: 75px;
+    padding: 17px 30px 0;
+
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    column-gap: 20px;
+    align-items: start;
+
+    background: #000000;
+    color: #ffffff;
+}
+
+.logo {
+    grid-column: 1 / 2;
+
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.navegacion {
+    grid-column: 3 / 7;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 20px;
+}
+
+.grupo-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.grupo-nav:first-child {
+    grid-column: 1 / 2;
+}
+
+.grupo-nav:last-child {
+    grid-column: 2 / 4;
+}
+
+.grupo-nav a {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    white-space: nowrap;
+}
+
+.grupo-nav a.activo {
+    font-weight: 700;
+}
+
+
+/* ===================================
+   DISTRIBUCIÓN DEL GENERADOR
+=================================== */
+
+.generador {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 5fr)
+        minmax(260px, 1fr);
+
+    min-height: calc(100vh - 75px);
+}
+
+
+/* ===================================
+   ÁREA DEL MAPA
+=================================== */
+
+.area-mapa {
+    min-width: 0;
+    min-height: calc(100vh - 75px);
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    background: #ffffff;
+}
+
+
+/* ===================================
+   CONTENEDOR DEL LIENZO
+=================================== */
+
+#lienzo {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+/* ===================================
+   REPRESENTACIÓN DEL MAPA
+=================================== */
+
+#lienzo canvas {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#lienzo svg {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: visible;
+    pointer-events: none;
+}
+
+
+/* ===================================
+   PANEL LATERAL
+=================================== */
+
+.panel-controles {
+    min-width: 0;
+    border-left: 1px solid #000000;
+
+    display: flex;
+    flex-direction: column;
+
+    font-family: "CxMono", monospace;
+    font-size: 10px;
+}
+
+.controles-principales {
+    flex: 1;
+    padding: 12px 16px 24px;
+}
+
+
+/* ===================================
+   OPCIONES SUPERIORES
+=================================== */
+
+.opciones-superiores {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+}
+
+
+/* ===================================
+   SELECTOR DE CALIDAD
+=================================== */
+
+.selector-calidad {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.opcion-calidad {
+    padding: 3px 9px;
+
+    border: 1px solid #000000;
+    border-radius: 20px;
+
+    background: #ffffff;
+    color: #000000;
+
+    font-family: "CxMono", monospace;
+    font-size: 9px;
+    font-weight: 400;
+
+    white-space: nowrap;
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.opcion-calidad:not(.activo):hover {
+    background: #d9d9d9;
+}
+
+.opcion-calidad.activo,
+.opcion-calidad.activo:hover {
+    background: #000000;
+    color: #ffffff;
+}
+
+.texto-calidad {
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+
+/* ===================================
+   RECREATE INITIAL FORM
+=================================== */
+
+.opcion-recrear {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 9px;
+
+    padding: 0;
+    border: none;
+
+    background: transparent;
+    color: #000000;
+
+    font-family: "CxMono", monospace;
+    font-size: 10px;
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.icono-recrear {
+    display: inline-block;
+    flex-shrink: 0;
+
+    width: 23px;
+    height: 14px;
+
+    border: 1px solid #000000;
+    border-radius: 20px;
+
+    background: #ffffff;
+}
+
+
+/* ===================================
+   SELECTOR DE GENERACIÓN
+=================================== */
+
+.selector-generacion {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    width: 100%;
+
+    font-family: "CxMono", monospace;
+    font-size: 10px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.titulo-generacion {
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.opciones-generacion {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 18px;
+    row-gap: 10px;
+}
+
+.opcion-generacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    margin: 0;
+
+    font-family: "CxMono", monospace;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.opcion-generacion input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    width: 15px;
+    height: 15px;
+    margin: 0;
+
+    border: 1px solid #000000;
+    border-radius: 50%;
+    background: #ffffff;
+
+    cursor: pointer;
+}
+
+.opcion-generacion input[type="radio"]::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+    background: #000000;
+
+    transform: scale(0);
+    transition: transform 0.15s ease;
+}
+
+.opcion-generacion input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+
+
+/* ===================================
+   SELECT TERRITORY — DESPLEGABLE
+=================================== */
+
+.contenedor-territorios select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    display: block;
+    width: 100%;
+    min-height: 34px;
+    padding: 7px 42px 7px 14px;
+
+    border: 1px solid #000000;
+    border-radius: 100px;
+
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23000000' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 12px 8px;
+
+    color: #000000;
+    font-family: "CxMono", monospace;
+    font-size: 10px;
+    font-weight: 400;
+
+    cursor: pointer;
+}
+
+.contenedor-territorios select:hover {
+    border-color: #000000;
+}
+
+.contenedor-territorios select:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
+
+
+/* ===================================
+   SELECCIÓN DE TERRITORIO
+=================================== */
+
+.contenedor-territorios {
+    width: 100%;
+    margin-top: 4px;
+}
+
+.contenedor-territorios[hidden] {
+    display: none;
+}
+
+.contenedor-territorios label {
+    display: block;
+    margin-bottom: 7px;
+
+    font-family: "CxMono", monospace;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+
+
+
+
+
+/* ===================================
+   LISTA DE SLIDERS
+=================================== */
+
+.lista-sliders {
+    margin-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.control-slider {
+    width: 100%;
+}
+
+.control-slider label {
+    display: block;
+}
+
+
+/* ===================================
+   BARRA Y RELLENO DEL SLIDER
+=================================== */
+
+.barra-slider {
+    position: relative;
+
+    width: 100%;
+    height: 16px;
+
+    background: #d9d9d9;
+    border-radius: 100px;
+
+    overflow: hidden;
+}
+
+.relleno-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 50%;
+    height: 100%;
+
+    background: #000000;
+    border-radius: 100px;
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+/* ===================================
+   INPUT DEL SLIDER
+=================================== */
+
+.barra-slider input[type="range"] {
+    appearance: none;
+    -webkit-appearance: none;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 16px;
+
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    border-radius: 100px;
+
+    background: transparent;
+
+    cursor: pointer;
+    z-index: 2;
+}
+
+
+/* ===================================
+   CÍRCULO — CHROME / EDGE / SAFARI
+=================================== */
+
+.barra-slider input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 16px;
+    height: 16px;
+
+    border: 1px solid #000000;
+    border-radius: 50%;
+
+    background: #ffffff;
+    box-shadow: none;
+
+    cursor: pointer;
+}
+
+
+/* ===================================
+   CÍRCULO — FIREFOX
+=================================== */
+
+.barra-slider input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+
+    border: 1px solid #000000;
+    border-radius: 50%;
+
+    background: #ffffff;
+    box-shadow: none;
+
+    cursor: pointer;
+}
+
+
+/* ===================================
+   PISTA — FIREFOX
+=================================== */
+
+.barra-slider input[type="range"]::-moz-range-track {
+    height: 16px;
+
+    border: none;
+    border-radius: 100px;
+
+    background: transparent;
+}
+
+
+/* ===================================
+   TEXTOS DE LOS EXTREMOS
+=================================== */
+
+.extremos {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 6px;
+
+    font-size: 6px;
+    line-height: 1.2;
+}
+
+
+/* ===================================
+   ACCIONES INFERIORES
+=================================== */
+
+.acciones {
+    border-top: 1px solid #000000;
+    padding: 13px 18px 17px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.acciones button {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 0;
+    border: none;
+
+    background: transparent;
+    color: #000000;
+
+    font-family: "CxMono", monospace;
+    font-size: 10px;
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.icono-accion {
+    display: inline-block;
+    flex-shrink: 0;
+
+    width: 23px;
+    height: 15px;
+
+    border: 1px solid #000000;
+    border-radius: 20px;
+
+    background: #ffffff;
+}
+
+
+/* ===================================
+   ESTADOS HOVER Y ACTIVE
+=================================== */
+
+.opcion-recrear:hover,
+.acciones button:hover {
+    opacity: 0.55;
+}
+
+.opcion-recrear:active,
+.acciones button:active {
+    opacity: 1;
+}
+
+.opcion-recrear:active .icono-recrear,
+.acciones button:active .icono-accion {
+    background: #000000;
+}
+
+
+/* ===================================
+   RESPONSIVE — TABLET
+=================================== */
+
+@media (max-width: 800px) {
+
+    .cabecera {
+        height: auto;
+        min-height: 110px;
+
+        padding: 20px;
+
+        grid-template-columns: 1fr;
+        row-gap: 18px;
+    }
+
+    .navegacion {
+        grid-column: 1;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .grupo-nav:first-child {
+        grid-column: 1;
+    }
+
+    .grupo-nav:last-child {
+        grid-column: 2;
+    }
+
+    .grupo-nav a {
+        white-space: normal;
+    }
+
+    .generador {
+        grid-template-columns: 1fr;
+    }
+
+    .area-mapa {
+        height: 60vh;
+        min-height: 320px;
+        padding: 0;
+    }
+
+    .panel-controles {
+        border-left: none;
+        border-top: 1px solid #000000;
+    }
+
+    .lista-sliders {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
+}
+
+
+/* ===================================
+   RESPONSIVE — MÓVIL
+=================================== */
+
+@media (max-width: 480px) {
+
+    .lista-sliders {
+        grid-template-columns: 1fr;
+    }
+
+    .opciones-generacion {
+        column-gap: 16px;
+    }
+}
+
+
+
+
+/* ===================================
+   BANNER — COMPARACIÓN TERRITORIAL
+=================================== */
+
+.archivo-modal[hidden] {
+    display: none;
+}
+
+.archivo-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    font-family: "Gontserrat", sans-serif;
+}
+
+
+/* ===================================
+   FONDO OSCURECIDO
+=================================== */
+
+.archivo-modal__fondo {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.55);
+}
+
+
+/* ===================================
+   CONTENEDOR PRINCIPAL
+=================================== */
+
+.archivo-modal__panel {
+    position: relative;
+
+    width: min(100%, 780px);
+    max-height: calc(100dvh - 40px);
+
+    padding: 22px 24px 32px;
+
+    border-radius: 24px;
+
+    background: #000000;
+    color: #ffffff;
+
+    overflow: hidden;
+}
+
+
+/* ===================================
+   BOTÓN CERRAR
+=================================== */
+
+.archivo-modal__cerrar {
+    position: absolute;
+    top: 10px;
+    right: 17px;
+
+    padding: 0;
+    border: 0;
+
+    background: transparent;
+    color: #ffffff;
+
+    font-size: 25px;
+    line-height: 1;
+
+    cursor: pointer;
+    z-index: 2;
+}
+
+.archivo-modal__cerrar:hover {
+    opacity: 0.6;
+}
+
+.archivo-modal__cerrar:focus-visible {
+    outline: 1px solid #ffffff;
+    outline-offset: 4px;
+}
+
+
+/* ===================================
+   TÍTULO Y PORCENTAJE
+=================================== */
+
+.archivo-modal__titulo {
+    margin: 0 22px 20px;
+
+    font-family: "Gontserrat", sans-serif;
+    font-size: clamp(18px, 2vw, 25px);
+    font-weight: 700;
+    line-height: 1.2;
+
+    text-align: center;
+}
+
+.archivo-modal__titulo strong {
+    color: #e000ff;
+    font-weight: 700;
+}
+
+
+/* ===================================
+   DISTRIBUCIÓN INTERIOR
+=================================== */
+
+.archivo-modal__contenido {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.5fr)
+        minmax(0, 1fr);
+
+    gap: 22px;
+    align-items: stretch;
+}
+
+
+/* ===================================
+   CAPTURA DEL MAPA
+=================================== */
+
+.archivo-modal__vista {
+    position: relative;
+
+    display: grid;
+    place-items: center;
+
+    width: 100%;
+    min-width: 0;
+
+    aspect-ratio: 1.1;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background: #ffffff;
+    color: #111111;
+}
+
+.archivo-modal__vista img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.archivo-modal__vista img[hidden] {
+    display: none;
+}
+
+.archivo-modal__vista p {
+    margin: 15px;
+
+    font-family: "CxMono", monospace;
+    font-size: 11px;
+    line-height: 1.4;
+
+    text-align: center;
+}
+
+
+/* ===================================
+   ANÁLISIS TERRITORIAL
+=================================== */
+
+.archivo-modal__analisis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    gap: 14px;
+    min-width: 0;
+}
+
+.archivo-modal__grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.archivo-modal__analisis h3 {
+    margin: 0;
+
+    font-family: "Gontserrat", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.archivo-modal__analisis p {
+    margin: 0;
+
+    font-family: "CxMono", monospace;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.35;
+}
+
+
+/* ===================================
+   MENSAJE DESTACADO
+=================================== */
+
+.archivo-modal__analisis .archivo-modal__mensaje {
+    width: 100%;
+    max-width: 290px;
+    align-self: center;
+
+    margin: 0;
+
+    color: #d946ef;
+
+    font-family: "Gontserrat", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.3;
+
+    text-align: center;
+    text-wrap: balance;
+}
+
+
+/* ===================================
+   BOTÓN CREAR TERRITORIO
+=================================== */
+
+.archivo-modal__publicar {
+    align-self: center;
+
+    padding: 9px 13px;
+
+    border: 1px solid #ffffff;
+    border-radius: 30px;
+
+    background: transparent;
+    color: #ffffff;
+
+    font-family: "CxMono", monospace;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.archivo-modal__publicar:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+.archivo-modal__publicar:focus-visible {
+    outline: 1px solid #ffffff;
+    outline-offset: 4px;
+}
+
+
+/* ===================================
+   BLOQUEO DE SCROLL
+=================================== */
+
+body.archivo-modal-abierto {
+    overflow: hidden;
+}
+
+
+/* ===================================
+   RESPONSIVE — TABLET
+=================================== */
+
+@media (max-width: 800px) {
+
+    .archivo-modal__panel {
+        width: min(100%, 700px);
+    }
+
+    .archivo-modal__contenido {
+        gap: 18px;
+    }
+
+    .archivo-modal__analisis h3 {
+        font-size: 14px;
+    }
+
+    .archivo-modal__analisis p {
+        font-size: 9px;
+    }
+
+    .archivo-modal__analisis .archivo-modal__mensaje {
+        font-size: 10px;
+    }
+}
+
+
+/* ===================================
+   RESPONSIVE — MÓVIL
+=================================== */
+
+@media (max-width: 600px) {
+
+    .archivo-modal {
+        padding: 12px;
+    }
+
+    .archivo-modal__panel {
+        padding: 20px 16px 24px;
+
+        border-radius: 20px;
+
+        max-height: calc(100dvh - 24px);
+        overflow-y: auto;
+    }
+
+    .archivo-modal__titulo {
+        margin: 0 20px 16px;
+        font-size: 18px;
+    }
+
+    .archivo-modal__contenido {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .archivo-modal__vista {
+        aspect-ratio: 1.5;
+    }
+
+    .archivo-modal__analisis {
+        gap: 14px;
+    }
+
+    .archivo-modal__analisis h3 {
+        font-size: 14px;
+    }
+
+    .archivo-modal__analisis p {
+        font-size: 10px;
+    }
+
+    .archivo-modal__analisis .archivo-modal__mensaje {
+        max-width: 100%;
+        font-size: 10px;
+    }
+
+    .archivo-modal__publicar {
+        align-self: center;
+    }
+}
+
+
+/* ===================================
+   RESPONSIVE — PANTALLAS BAJAS
+=================================== */
+
+@media (max-height: 600px) and (min-width: 601px) {
+
+    .archivo-modal__panel {
+        padding: 14px 20px 20px;
+    }
+
+    .archivo-modal__titulo {
+        margin-bottom: 12px;
+        font-size: 20px;
+    }
+
+    .archivo-modal__vista {
+        aspect-ratio: 1.4;
+    }
+
+    .archivo-modal__analisis {
+        gap: 8px;
+    }
+}
+
+
+/* ===================================
+   SEGUNDO BANNER — CREAR TERRITORIO
+=================================== */
+
+.territorio-formulario {
+    justify-content: flex-start;
+    gap: 22px;
+}
+
+.territorio-formulario .archivo-modal__grupo {
+    gap: 9px;
+}
+
+
+/* ===================================
+   ETIQUETAS DEL FORMULARIO
+=================================== */
+
+.territorio-formulario label {
+    display: block;
+
+    font-family: "Gontserrat", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+
+    color: #ffffff;
+}
+
+
+/* ===================================
+   CAMPOS DE TEXTO
+=================================== */
+
+.territorio-formulario input,
+.territorio-formulario textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+
+    padding: 11px 13px;
+
+    border: 1px solid #ffffff;
+    border-radius: 18px;
+
+    background: transparent;
+    color: #ffffff;
+
+    font-family: "CxMono", monospace;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.4;
+
+    outline: none;
+}
+
+.territorio-formulario input {
+    height: 39px;
+    border-radius: 24px;
+}
+
+.territorio-formulario textarea {
+    min-height: 95px;
+    resize: none;
+}
+
+.territorio-formulario input::placeholder,
+.territorio-formulario textarea::placeholder {
+    color: #bcbcbc;
+    opacity: 1;
+}
+
+.territorio-formulario input:focus-visible,
+.territorio-formulario textarea:focus-visible {
+    outline: 1px solid #ffffff;
+    outline-offset: 3px;
+}
+
+
+/* ===================================
+   BOTÓN DE PUBLICACIÓN
+=================================== */
+
+.territorio-formulario .archivo-modal__publicar {
+    align-self: center;
+    margin-top: auto;
+}
+
+
+/* ===================================
+   MENSAJES DE ESTADO
+=================================== */
+
+.territorio-estado {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: "CxMono", monospace;
+    font-size: 10px;
+    line-height: 1.4;
+
+    text-align: center;
+}
+
+.territorio-estado[hidden] {
+    display: none;
+}
+
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media (max-width: 800px) {
+
+    .territorio-formulario label {
+        font-size: 14px;
+    }
+
+    .territorio-formulario {
+        gap: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .territorio-formulario {
+        gap: 16px;
+    }
+
+    .territorio-formulario textarea {
+        min-height: 85px;
+    }
+
+    .territorio-formulario .archivo-modal__publicar {
+        margin-top: 8px;
+    }
+}

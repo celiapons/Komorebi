@@ -1,0 +1,19 @@
+
+# Dependencias
+node_modules/
+dist/
+
+# Configuración local y secretos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Archivos temporales
+.DS_Store
+Thumbs.db
+*.log
+
+# Configuración local del editor
+.vscode/settings.json

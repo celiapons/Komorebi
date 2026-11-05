@@ -1,0 +1,202 @@
+
+/* ===================================
+   TIPOGRAFÍAS
+=================================== */
+
+@font-face {
+    font-family: "Gontserrat";
+    src: url("fuentes/Gontserrat-Regular.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Gontserrat";
+    src: url("fuentes/Gontserrat-Bold.ttf");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "CxMono";
+    src: url("fuentes/CxMonoTrial-Regular.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "CxMono";
+    src: url("fuentes/CxMonoTrial-Medium.ttf");
+    font-weight: 500;
+}
+
+
+/* ===================================
+   CONFIGURACIÓN GENERAL
+=================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: #ffffff;
+    color: #000000;
+    font-family: "Gontserrat", sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* ===================================
+   CABECERA
+=================================== */
+
+.cabecera {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    padding: 17px 20px 0;
+
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    column-gap: 20px;
+
+    align-items: start;
+    z-index: 10;
+}
+
+.logo {
+    grid-column: 1 / 2;
+
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.navegacion {
+    grid-column: 3 / 7;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 20px;
+}
+
+.grupo-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.grupo-nav:first-child {
+    grid-column: 1 / 2;
+}
+
+.grupo-nav:last-child {
+    grid-column: 2 / 4;
+}
+
+.grupo-nav a {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    white-space: nowrap;
+}
+
+.grupo-nav a.activo {
+    font-weight: 700;
+}
+
+
+/* ===================================
+   SECCIÓN HOME
+=================================== */
+
+.seccion-home {
+    min-height: 100vh;
+    padding: 0 20px;
+
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    column-gap: 20px;
+}
+
+.contenido-home {
+    grid-column: 1 / 5;
+
+    padding-top: 53.5vh;
+}
+
+.contenido-home h1 {
+    margin: 0;
+
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.imagen-home {
+    width: 100%;
+    aspect-ratio: 870 / 458;
+
+    background-color: #d9d9d9;
+
+    margin-top: -4px;
+}
+
+
+/* ===================================
+   SECCIONES FUTURAS
+=================================== */
+
+.seccion-pendiente {
+    min-height: 100vh;
+}
+
+
+/* ===================================
+   ADAPTACIÓN A PANTALLAS PEQUEÑAS
+=================================== */
+
+@media (max-width: 800px) {
+
+    .cabecera {
+        grid-template-columns: 1fr;
+        row-gap: 24px;
+        padding: 20px;
+    }
+
+    .navegacion {
+        grid-column: 1;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .grupo-nav:first-child {
+        grid-column: 1;
+    }
+
+    .grupo-nav:last-child {
+        grid-column: 2;
+    }
+
+    .grupo-nav a {
+        white-space: normal;
+    }
+
+    .seccion-home {
+        grid-template-columns: 1fr;
+    }
+
+    .contenido-home {
+        grid-column: 1;
+        padding-top: 45vh;
+    }
+}

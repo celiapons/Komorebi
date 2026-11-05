@@ -1,0 +1,376 @@
+
+/* ===================================
+   TIPOGRAFÍAS
+=================================== */
+
+@font-face {
+    font-family: "Gontserrat";
+    src: url("../fuentes/Gontserrat-Regular.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Gontserrat";
+    src: url("../fuentes/Gontserrat-Bold.ttf");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "CxMono";
+    src: url("../fuentes/CxMonoTrial-Regular.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "CxMono";
+    src: url("../fuentes/CxMonoTrial-Medium.ttf");
+    font-weight: 500;
+}
+
+
+/* ===================================
+   CONFIGURACIÓN GENERAL
+=================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: #ffffff;
+    color: #000000;
+    font-family: "Gontserrat", sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+
+/* ===================================
+   CABECERA — IGUAL QUE EL LANDING
+=================================== */
+
+.cabecera {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 17px 20px 0;
+
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    column-gap: 20px;
+    align-items: start;
+
+    z-index: 10;
+}
+
+.logo {
+    grid-column: 1 / 2;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.navegacion {
+    grid-column: 3 / 7;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 20px;
+}
+
+.grupo-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.grupo-nav:first-child {
+    grid-column: 1 / 2;
+}
+
+.grupo-nav:last-child {
+    grid-column: 2 / 4;
+}
+
+.grupo-nav a {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    white-space: nowrap;
+}
+
+.grupo-nav a.activo {
+    font-weight: 700;
+}
+
+
+/* ===================================
+   ARCHIVO
+=================================== */
+
+.archivo {
+    padding: 140px 30px 40px;
+}
+
+
+/* ===================================
+   FILTROS
+=================================== */
+
+.filtros-archivo {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 12px;
+}
+
+.filtro {
+    appearance: none;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+
+    color: #000000;
+    font-family: "Gontserrat", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+
+    cursor: pointer;
+}
+
+.filtro:first-child {
+    margin-right: 50px;
+}
+
+.filtro.activo {
+    font-weight: 700;
+}
+
+.filtro:hover {
+    opacity: 0.55;
+}
+
+.filtro:focus-visible {
+    outline: 1px solid #000000;
+    outline-offset: 4px;
+}
+
+
+/* ===================================
+   TERRITORIO DESTACADO
+=================================== */
+
+.territorio-destacado {
+    width: 100%;
+    margin: 0 0 55px;
+}
+
+.territorio-destacado[hidden] {
+    display: none;
+}
+
+.mapa-territorial {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.mapa-territorial video,
+.mapa-territorial canvas,
+.mapa-territorial svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.mapa-territorial video {
+    object-fit: cover;
+    object-position: center;
+    border: none;
+}
+
+
+/* ===================================
+   TÍTULO DE GALERÍA TERRITORIAL
+=================================== */
+
+.titulo-galeria {
+    margin: 0 0 14px;
+    font-family: "Gontserrat", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.titulo-galeria[hidden] {
+    display: none;
+}
+
+
+/* ===================================
+   GALERÍA MASONRY
+=================================== */
+
+.galeria-archivo {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+
+.columna-mapas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+}
+
+.tarjeta-mapa {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.imagen-mapa {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #f1f1f1;
+}
+
+.tarjeta-mapa img,
+.tarjeta-mapa video {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.tarjeta-mapa img:not([src]) {
+    display: none;
+}
+
+.tarjeta-mapa video {
+    background: #ffffff;
+}
+
+.imagen-pendiente {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 180px;
+    background: #f1f1f1;
+
+    font-family: "CxMono", monospace;
+    font-size: 11px;
+    color: #777777;
+}
+
+.mensaje-vacio {
+    margin: 30px 0 0;
+    font-family: "CxMono", monospace;
+    font-size: 12px;
+}
+
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media (max-width: 1000px) {
+    .galeria-archivo {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 800px) {
+    .cabecera {
+        grid-template-columns: 1fr;
+        row-gap: 24px;
+        padding: 20px;
+    }
+
+    .navegacion {
+        grid-column: 1;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .grupo-nav:first-child {
+        grid-column: 1;
+    }
+
+    .grupo-nav:last-child {
+        grid-column: 2;
+    }
+
+    .grupo-nav a {
+        white-space: normal;
+    }
+
+    .archivo {
+        padding: 170px 20px 30px;
+    }
+
+    .filtros-archivo {
+        gap: 16px;
+    }
+
+    .filtro {
+        font-size: 12px;
+    }
+
+    .territorio-destacado {
+        margin-bottom: 35px;
+    }
+
+    .mapa-territorial {
+        aspect-ratio: 16 / 9;
+    }
+
+    .titulo-galeria {
+        font-size: 16px;
+    }
+
+    .galeria-archivo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .columna-mapas {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .archivo {
+        padding-top: 180px;
+    }
+
+    .galeria-archivo {
+        grid-template-columns: 1fr;
+    }
+
+    .mapa-territorial {
+        aspect-ratio: 4 / 3;
+    }
+}
