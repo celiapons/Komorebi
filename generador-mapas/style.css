@@ -1427,3 +1427,68 @@ body::-webkit-scrollbar {
     }
 
 }
+
+/* ===================================
+   TIPOGRAFÍA DESKTOP +1 PT
+   GENERADOR
+=================================== */
+
+@media (min-width: 1101px) {
+
+    .logo {
+        font-size: 25.333px;
+    }
+
+    .grupo-nav a {
+        font-size: 11.333px;
+        line-height: 16.333px;
+    }
+
+    .panel-controles,
+    .texto-calidad,
+    .opcion-recrear,
+    .selector-generacion,
+    .titulo-generacion,
+    .opcion-generacion,
+    .contenedor-territorios select,
+    .contenedor-territorios label,
+    .acciones button,
+    .archivo-modal__analisis p,
+    .archivo-modal__analisis .archivo-modal__mensaje,
+    .territorio-estado,
+    .pie-pagina {
+        font-size: 11.333px;
+    }
+
+    .opcion-calidad {
+        font-size: 10.333px;
+    }
+
+    .extremos {
+        font-size: 7.333px;
+    }
+
+    .archivo-modal__cerrar {
+        font-size: 26.333px;
+    }
+
+    .archivo-modal__titulo {
+        font-size: clamp(19.333px, calc(2vw + 1.333px), 26.333px);
+    }
+
+    .archivo-modal__vista p,
+    .territorio-formulario input,
+    .territorio-formulario textarea {
+        font-size: 12.333px;
+    }
+
+    .archivo-modal__analisis h3,
+    .territorio-formulario label {
+        font-size: 16.333px;
+    }
+
+    .archivo-modal__publicar {
+        font-size: 13.333px;
+    }
+
+}

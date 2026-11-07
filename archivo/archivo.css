@@ -1341,3 +1341,82 @@ body.territorio-principal-abierto {
         font-size: clamp(6px, 1.6vw, 8px);
     }
 }
+
+/* ===================================
+   TIPOGRAFÍA DESKTOP +1 PT
+   ARCHIVO
+=================================== */
+
+@media (min-width: 1101px) {
+
+    .logo {
+        font-size: 25.333px;
+    }
+
+    .grupo-nav a {
+        font-size: 11.333px;
+        line-height: 16.333px;
+    }
+
+    .filtro,
+    .tarjeta-mapa__similitud,
+    .territorio-info-modal__similitud,
+    .territorio-principal-boton__contenido span,
+    .territorio-principal-modal__descripcion h3 {
+        font-size: 13.333px;
+    }
+
+    .titulo-galeria {
+        font-size: 19.333px;
+    }
+
+    .tarjeta-mapa__nombre {
+        font-size: 17.333px;
+    }
+
+    .tarjeta-mapa__boton,
+    .imagen-pendiente {
+        font-size: 12.333px;
+    }
+
+    .mensaje-vacio {
+        font-size: 13.333px;
+    }
+
+    .territorio-info-modal__cerrar,
+    .territorio-principal-modal__cerrar {
+        font-size: 26.333px;
+    }
+
+    .territorio-info-modal__titulo,
+    .territorio-principal-modal__titulo {
+        font-size: 23.333px;
+    }
+
+    .territorio-info-modal__descripcion h3 {
+        font-size: 16.333px;
+    }
+
+    .territorio-info-modal__descripcion p {
+        font-size: 14.333px;
+    }
+
+    .territorio-principal-boton__contenido strong {
+        font-size: 21.333px;
+    }
+
+    #territorio-principal-textos p {
+        font-size: clamp(
+            10.333px,
+            calc(0.85vw + 1.333px),
+            12.333px
+        );
+    }
+
+    .territorio-principal-modal__tabla,
+    .territorio-principal-modal__porcentajes,
+    .pie-pagina {
+        font-size: 11.333px;
+    }
+
+}
