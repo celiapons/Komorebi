@@ -5,32 +5,41 @@
 
 @font-face {
     font-family: "Gontserrat";
-    src: url("fuentes/Gontserrat-Regular.ttf");
+    src: url("fuentes/Gontserrat-Regular.ttf") format("truetype");
     font-weight: 400;
+    font-display: swap;
 }
 
 @font-face {
     font-family: "Gontserrat";
-    src: url("fuentes/Gontserrat-Bold.ttf");
+    src: url("fuentes/Gontserrat-Bold.ttf") format("truetype");
     font-weight: 700;
+    font-display: swap;
 }
 
 @font-face {
     font-family: "CxMono";
-    src: url("fuentes/CxMonoTrial-Regular.ttf");
+    src: url("fuentes/CxMonoTrial-Regular.ttf") format("truetype");
     font-weight: 400;
+    font-display: swap;
 }
 
 @font-face {
     font-family: "CxMono";
-    src: url("fuentes/CxMonoTrial-Medium.ttf");
+    src: url("fuentes/CxMonoTrial-Medium.ttf") format("truetype");
     font-weight: 500;
+    font-display: swap;
 }
-
 
 /* ===================================
    CONFIGURACIÓN GENERAL
 =================================== */
+
+:root {
+    --margen: 20px;
+    --calle: 20px;
+    --columnas: repeat(6, minmax(0, 1fr));
+}
 
 * {
     box-sizing: border-box;
@@ -38,13 +47,23 @@
 
 html {
     scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
 }
 
 body {
     margin: 0;
     background: #ffffff;
     color: #000000;
-    font-family: "Gontserrat", sans-serif;
+    font-family: "Gontserrat", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 a {
@@ -52,6 +71,20 @@ a {
     text-decoration: none;
 }
 
+img {
+    display: block;
+    max-width: 100%;
+}
+
+p,
+h1,
+h2 {
+    margin: 0;
+}
+
+.contenedor {
+    margin-inline: var(--margen);
+}
 
 /* ===================================
    CABECERA
@@ -61,21 +94,19 @@ a {
     position: absolute;
     top: 0;
     left: 0;
-
-    width: 100%;
-    padding: 17px 20px 0;
+    right: 0;
+    z-index: 20;
 
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    column-gap: 20px;
+    grid-template-columns: var(--columnas);
+    column-gap: var(--calle);
 
-    align-items: start;
-    z-index: 10;
+    padding: 17px var(--margen) 25px;
+    background: #ffffff;
 }
 
 .logo {
     grid-column: 1 / 2;
-
     font-size: 24px;
     font-weight: 700;
     line-height: 1;
@@ -83,10 +114,9 @@ a {
 
 .navegacion {
     grid-column: 3 / 7;
-
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: 20px;
+    column-gap: var(--calle);
 }
 
 .grupo-nav {
@@ -114,69 +144,637 @@ a {
     font-weight: 700;
 }
 
-
 /* ===================================
    SECCIÓN HOME
 =================================== */
 
 .seccion-home {
-    min-height: 100vh;
-    padding: 0 20px;
-
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    column-gap: 20px;
-}
-
-.contenido-home {
-    grid-column: 1 / 5;
-
     padding-top: 53.5vh;
 }
 
-.contenido-home h1 {
-    margin: 0;
-
+.seccion-home h1 {
     font-size: 22px;
     font-weight: 700;
     line-height: 1;
+    letter-spacing: -0.025em;
+    margin-bottom: 5px;
 }
 
-.imagen-home {
+/* ===================================
+   COLLAGE — DESKTOP
+=================================== */
+
+.collage {
+    --mapa-x: 50%;
+    --mapa-y: 50%;
+    --mapa-radio: 220px;
+
+    position: relative;
     width: 100%;
+    aspect-ratio: 1.32;
+    margin-bottom: clamp(65px, 8vw, 150px);
+
+    isolation: isolate;
+    overflow: visible;
+}
+
+.collage img {
+    position: absolute;
+    display: block;
+    height: auto;
+    max-width: none;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.collage .collage-01 {
+    left: 0;
+    top: 0;
+    width: 63%;
     aspect-ratio: 870 / 458;
-
-    background-color: #d9d9d9;
-
-    margin-top: -4px;
 }
 
-
-/* ===================================
-   SECCIONES FUTURAS
-=================================== */
-
-.seccion-pendiente {
-    min-height: 100vh;
+.collage .collage-02 {
+    left: 10.7%;
+    top: 45%;
+    width: 13.7%;
 }
 
+.collage .collage-03 {
+    left: 25.5%;
+    top: 45%;
+    width: 42.5%;
+}
+
+.collage .collage-04 {
+    left: 69.15%;
+    top: 45%;
+    width: 18%;
+}
+
+.collage .collage-05 {
+    left: 48%;
+    top: 82.1%;
+    width: 8.7%;
+}
+
+.collage .collage-06 {
+    left: 57.8%;
+    top: 82.1%;
+    width: 18.5%;
+}
+
+.collage .collage-07 {
+    left: 77.4%;
+    top: 90%;
+    width: 15.5%;
+}
+
+.collage .collage-08 {
+    left: 64.1%;
+    top: 23.3%;
+    width: 12%;
+}
+
+.collage .collage-09 {
+    left: 39%;
+    top: 82.1%;
+    width: 8%;
+}
+
+.collage .collage-10 {
+    left: 15.8%;
+    top: 103.75%;
+    width: 20%;
+}
+
+.collage .collage-11 {
+    left: 37%;
+    top: 103.85%;
+    width: 31.15%;
+}
+
+.collage .collage-12 {
+    left: 69.25%;
+    top: 112.7%;
+    width: 20.9%;
+}
 
 /* ===================================
-   ADAPTACIÓN A PANTALLAS PEQUEÑAS
+   MAPA INTERACTIVO DEL COLLAGE
 =================================== */
 
-@media (max-width: 800px) {
+.collage-mapa-fondo {
+    position: absolute;
+
+    left: calc(-1 * var(--margen));
+    right: calc(-1 * var(--margen));
+    top: calc(-53.5vh + 25px);
+    bottom: -330px;
+
+    z-index: 0;
+
+    background-image: url("imagenes/mapa-fondo.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    pointer-events: none;
+    opacity: 0;
+
+    -webkit-mask-image: radial-gradient(
+        circle var(--mapa-radio) at var(--mapa-x) var(--mapa-y),
+        #000 0%,
+        #000 30%,
+        rgba(0, 0, 0, 0.85) 48%,
+        rgba(0, 0, 0, 0.45) 72%,
+        transparent 100%
+    );
+
+    mask-image: radial-gradient(
+        circle var(--mapa-radio) at var(--mapa-x) var(--mapa-y),
+        #000 0%,
+        #000 30%,
+        rgba(0, 0, 0, 0.85) 48%,
+        rgba(0, 0, 0, 0.45) 72%,
+        transparent 100%
+    );
+
+    transition: opacity 0.2s ease;
+}
+
+.collage.mapa-activo .collage-mapa-fondo {
+    opacity: 1;
+}
+
+.espacio-despues-collage {
+    height: 250px;
+}
+
+/* ===================================
+   SECCIÓN PROJECT
+=================================== */
+
+.seccion-proyecto {
+    display: grid;
+    grid-template-columns: var(--columnas);
+    column-gap: var(--calle);
+}
+
+/* ===================================
+   TEXTO EDITORIAL
+=================================== */
+
+.texto-editorial {
+    grid-column: 1 / -1;
+
+    display: grid;
+    grid-template-columns: var(--columnas);
+    column-gap: var(--calle);
+    align-items: start;
+
+    margin-bottom: 27px;
+}
+
+.texto-editorial h2 {
+    grid-column: 1 / 3;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.texto-editorial .texto-columnas {
+    grid-column: 3 / 7;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--calle);
+    align-items: start;
+}
+
+.texto-columnas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--calle);
+}
+
+.texto-columnas p,
+.creator-texto p {
+    font-size: 11px;
+    line-height: 1.15;
+    letter-spacing: -0.008em;
+}
+
+.texto-columnas p + p,
+.creator-texto p + p {
+    margin-top: 1.1em;
+}
+
+/* ===================================
+   CARRUSELES AUTOMÁTICOS
+=================================== */
+
+.carrusel {
+    position: relative;
+    overflow: hidden;
+    background: #eeeeee;
+}
+
+.carrusel img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.carrusel img.visible {
+    opacity: 1;
+}
+
+.carrusel-uno {
+    grid-column: 3 / 7;
+    width: 100%;
+    aspect-ratio: 1.38;
+    margin-bottom: 50px;
+}
+
+/* ===================================
+   INSTALACIÓN Y ARCHIVO EDITORIAL
+=================================== */
+
+.bloque-instalacion {
+    grid-column: 1 / -1;
+
+    display: grid;
+    grid-template-columns: var(--columnas);
+    column-gap: var(--calle);
+    align-items: start;
+
+    margin-bottom: 27px;
+}
+
+.bloque-instalacion h2 {
+    grid-column: 5 / 7;
+    grid-row: 1;
+
+    margin: 0;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.bloque-instalacion .texto-columnas {
+    grid-column: 1 / 5;
+    grid-row: 1;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--calle);
+    align-items: start;
+}
+
+.bloque-instalacion .texto-columnas p {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.15;
+    letter-spacing: -0.008em;
+}
+
+.bloque-instalacion .texto-columnas > :first-child {
+    grid-column: 1;
+}
+
+.bloque-instalacion .texto-columnas > :nth-child(2) {
+    grid-column: 2;
+    margin-top: 0;
+}
+
+/* ===================================
+   CARRUSEL 02
+=================================== */
+
+.carrusel-dos {
+    grid-column: 1 / 5;
+    width: 100%;
+    aspect-ratio: 1.55;
+}
+
+/* ===================================
+   ELEMENTO JAPONÉS
+=================================== */
+
+.kanji {
+    grid-column: 1 / -1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: clamp(200px, 27vw, 420px);
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* ===================================
+   ABOUT CREATOR
+=================================== */
+
+.seccion-creator {
+    padding-bottom: 80px;
+}
+
+.seccion-creator h2 {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 7px;
+}
+
+.creator-layout {
+    display: grid;
+    grid-template-columns: var(--columnas);
+    column-gap: var(--calle);
+    align-items: start;
+}
+
+.creator-foto {
+    grid-column: 1 / 3;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1.06;
+    object-fit: cover;
+}
+
+.creator-texto {
+    grid-column: 3 / 5;
+    min-width: 0;
+}
+
+.creator-texto p {
+    font-size: 11px;
+    line-height: 1.15;
+    letter-spacing: -0.008em;
+    margin: 0;
+    text-align: left;
+}
+
+.creator-texto p + p {
+    margin-top: 1.1em;
+}
+
+/* ===================================
+   FOOTER
+=================================== */
+
+.pie-pagina {
+    min-height: 49px;
+    padding: 15px var(--margen);
+
+    background: #090000;
+    color: #ffffff;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+
+    font-size: 10px;
+}
+
+.pie-pagina span:nth-child(2) {
+    text-align: center;
+}
+
+.pie-pagina span:nth-child(3) {
+    text-align: right;
+}
+
+/* ===================================
+   TABLET — 701px A 1100px
+=================================== */
+
+@media (min-width: 701px) and (max-width: 1100px) {
+
+    :root {
+        --margen: 16px;
+        --calle: 14px;
+    }
+
+    .cabecera {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .navegacion {
+        grid-column: 3 / 7;
+    }
+
+    .grupo-nav a {
+        font-size: 10px;
+    }
+
+    .seccion-home {
+        padding-top: 40vh;
+    }
+
+    .seccion-home h1 {
+        font-size: 20px;
+    }
+
+    /* COLLAGE TABLET */
+
+    .collage {
+        --mapa-radio: 170px;
+
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 10px;
+        align-items: start;
+
+        aspect-ratio: auto;
+        margin-bottom: 0;
+    }
+
+    .collage img {
+        position: static;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        aspect-ratio: auto;
+        object-fit: contain;
+    }
+
+    .collage .collage-01 {
+        grid-column: 1 / 5;
+        width: 100%;
+    }
+
+    .collage .collage-02 {
+        grid-column: 1 / 2;
+        width: 100%;
+    }
+
+    .collage .collage-03 {
+        grid-column: 2 / 5;
+        width: 100%;
+    }
+
+    .collage .collage-04 {
+        grid-column: 5 / 7;
+        width: 100%;
+    }
+
+    .collage .collage-05 {
+        grid-column: 3 / 4;
+        width: 100%;
+    }
+
+    .collage .collage-06 {
+        grid-column: 4 / 6;
+        width: 100%;
+    }
+
+    .collage .collage-07 {
+        grid-column: 6 / 7;
+        width: 100%;
+    }
+
+    .collage .collage-08 {
+        grid-column: 1 / 3;
+        width: 100%;
+    }
+
+    .collage .collage-09 {
+        grid-column: 3 / 4;
+        width: 100%;
+    }
+
+    .collage .collage-10 {
+        grid-column: 1 / 3;
+        width: 100%;
+    }
+
+    .collage .collage-11 {
+        grid-column: 3 / 5;
+        width: 100%;
+    }
+
+    .collage .collage-12 {
+        grid-column: 5 / 7;
+        width: 100%;
+    }
+
+    .collage-mapa-fondo {
+        top: calc(-40vh + 25px);
+    }
+
+    .espacio-despues-collage {
+        height: 90px;
+    }
+
+    /* TEXTOS */
+
+    .texto-editorial {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        column-gap: var(--calle);
+    }
+
+    .texto-editorial h2 {
+        font-size: 12px;
+    }
+
+    .texto-columnas p,
+    .creator-texto p {
+        font-size: 11px;
+        line-height: 1.2;
+    }
+
+    /* CARRUSEL 01 */
+
+    .carrusel-uno {
+        grid-column: 3 / 7;
+        width: 100%;
+        aspect-ratio: 1.65;
+        margin-bottom: 50px;
+    }
+
+    /* INSTALACIÓN Y ARCHIVO */
+
+    .bloque-instalacion {
+        grid-column: 1 / -1;
+
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        column-gap: var(--calle);
+        align-items: start;
+    }
+
+    .bloque-instalacion h2 {
+        grid-column: 5 / 7;
+        grid-row: 1;
+        text-align: right;
+        font-size: 12px;
+    }
+
+    .bloque-instalacion .texto-columnas {
+        grid-column: 1 / 5;
+        grid-row: 1;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: var(--calle);
+    }
+
+    .bloque-instalacion .texto-columnas p {
+        font-size: 11px;
+        line-height: 1.2;
+    }
+
+    .carrusel-dos {
+        grid-column: 1 / 5;
+        width: 100%;
+    }
+
+    .seccion-creator h2 {
+        font-size: 13px;
+    }
+}
+
+/* ===================================
+   MÓVIL — HASTA 700px
+=================================== */
+
+@media (max-width: 700px) {
+
+    :root {
+        --margen: 14px;
+        --calle: 10px;
+    }
+
+    /* CABECERA */
 
     .cabecera {
         grid-template-columns: 1fr;
-        row-gap: 24px;
-        padding: 20px;
+        gap: 16px;
+        padding: 16px var(--margen) 25px;
+    }
+
+    .logo {
+        grid-column: 1;
+        font-size: 22px;
     }
 
     .navegacion {
         grid-column: 1;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        gap: 15px;
     }
 
     .grupo-nav:first-child {
@@ -188,15 +786,256 @@ a {
     }
 
     .grupo-nav a {
+        font-size: 10px;
         white-space: normal;
     }
 
+    /* HOME */
+
     .seccion-home {
+        padding-top: 250px;
+    }
+
+    .seccion-home h1 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    /* COLLAGE MÓVIL */
+
+    .collage {
+        --mapa-radio: 120px;
+
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        align-items: start;
+
+        aspect-ratio: auto;
+        margin-bottom: 0;
+    }
+
+    .collage img {
+        position: static;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        aspect-ratio: auto;
+        object-fit: contain;
+    }
+
+    .collage .collage-01 {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .collage .collage-02 {
+        grid-column: 1;
+        width: 100%;
+    }
+
+    .collage .collage-03 {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .collage .collage-04 {
+        grid-column: 2;
+        width: 100%;
+    }
+
+    .collage .collage-05 {
+        grid-column: 1;
+        width: 100%;
+    }
+
+    .collage .collage-06 {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .collage .collage-07 {
+        grid-column: 2;
+        width: 100%;
+    }
+
+    .collage .collage-08 {
+        grid-column: 1;
+        width: 100%;
+    }
+
+    .collage .collage-09 {
+        grid-column: 2;
+        width: 100%;
+    }
+
+    .collage .collage-10 {
+        grid-column: 1;
+        width: 100%;
+    }
+
+    .collage .collage-11 {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .collage .collage-12 {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .collage-mapa-fondo {
+        top: -220px;
+    }
+
+    .espacio-despues-collage {
+        height: 65px;
+    }
+
+    /* PROJECT */
+
+    .seccion-proyecto {
         grid-template-columns: 1fr;
     }
 
-    .contenido-home {
+    .texto-editorial {
+        display: block;
+        margin-bottom: 30px;
+    }
+
+    .texto-editorial h2 {
+        font-size: 14px;
+        margin-bottom: 18px;
+    }
+
+    .texto-editorial .texto-columnas,
+    .texto-columnas {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .texto-columnas p,
+    .creator-texto p {
+        font-size: 13px;
+        line-height: 1.3;
+        letter-spacing: 0;
+    }
+
+    .texto-columnas p + p,
+    .creator-texto p + p {
+        margin-top: 1em;
+    }
+
+    /* CARRUSELES */
+
+    .carrusel-uno,
+    .carrusel-dos {
         grid-column: 1;
-        padding-top: 45vh;
+        width: 100%;
+        aspect-ratio: 1.1;
+    }
+
+    .carrusel-uno {
+        margin-bottom: 30px;
+    }
+
+    /* INSTALACIÓN Y ARCHIVO */
+
+    .bloque-instalacion {
+        grid-column: 1;
+
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+
+        margin-bottom: 30px;
+    }
+
+    .bloque-instalacion h2 {
+        order: 0;
+        width: 100%;
+        text-align: right;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    .bloque-instalacion .texto-columnas {
+        order: 1;
+        width: 100%;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .bloque-instalacion .texto-columnas > :first-child,
+    .bloque-instalacion .texto-columnas > :nth-child(2) {
+        grid-column: 1;
+    }
+
+    .bloque-instalacion .texto-columnas p {
+        font-size: 13px;
+        line-height: 1.3;
+        letter-spacing: 0;
+    }
+
+    /* ELEMENTO JAPONÉS */
+
+    .kanji {
+        grid-column: 1;
+        min-height: 270px;
+        font-size: 18px;
+    }
+
+    /* ABOUT CREATOR */
+
+    .seccion-creator {
+        padding-bottom: 45px;
+    }
+
+    .seccion-creator h2 {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .creator-layout {
+        display: block;
+    }
+
+    .creator-foto {
+        width: 100%;
+        aspect-ratio: 1.1;
+        margin-bottom: 20px;
+    }
+
+    /* FOOTER */
+
+    .pie-pagina {
+        font-size: 9px;
+        gap: 8px;
+        padding: 15px var(--margen);
+    }
+}
+
+/* ===================================
+   ACCESIBILIDAD
+=================================== */
+
+@media (hover: none) {
+    .collage-mapa-fondo {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    .carrusel img,
+    .collage-mapa-fondo {
+        transition: none;
     }
 }

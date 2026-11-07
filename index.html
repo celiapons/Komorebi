@@ -9,22 +9,21 @@
     <title>KOMOREBI — Home</title>
 
     <link rel="stylesheet" href="style.css">
+    <script src="home.js" defer></script>
 </head>
 
 <body>
 
-    <!-- ===================================
-         NAVEGACIÓN PRINCIPAL
-    =================================== -->
+    <!-- NAVEGACIÓN PRINCIPAL -->
 
-    <header class="cabecera">
+    <header class="cabecera" id="top">
 
         <a href="#home" class="logo">KKK</a>
 
-        <nav class="navegacion">
+        <nav class="navegacion" aria-label="Main navigation">
 
             <div class="grupo-nav">
-                <a href="#home" class="activo">Home</a>
+                <a href="#home" class="activo" aria-current="page">Home</a>
                 <a href="#project">Project</a>
                 <a href="#creator">About Creator</a>
             </div>
@@ -33,7 +32,10 @@
                 <a href="generador-mapas/index.html">
                     Create your Komorebi map
                 </a>
-                <a href="archivo/index.html">Archive Komorebi</a>
+
+                <a href="archivo/index.html">
+                    Archive Komorebi
+                </a>
             </div>
 
         </nav>
@@ -42,39 +44,414 @@
 
     <main>
 
-        <!-- ===================================
-             SECCIÓN 01 — HOME
-        =================================== -->
+        <!-- SECCIÓN 01 — HOME -->
 
-        <section id="home" class="seccion-home">
+        <section id="home" class="seccion-home contenedor">
 
-            <div class="contenido-home">
+            <h1>The komorebi project</h1>
 
-                <h1>The komorebi project</h1>
+            <div
+                class="collage"
+                aria-label="Visual overview of the Komorebi project">
 
-                <div class="imagen-home"></div>
+                <div class="collage-mapa-fondo" aria-hidden="true"></div>
+
+                <img
+                    class="collage-01"
+                    src="imagenes/collage/home-collage-01.jpg"
+                    alt="Komorebi project on digital devices">
+
+                <img
+                    class="collage-02"
+                    src="imagenes/collage/home-collage-02.jpg"
+                    alt="Komorebi mobile experience"
+                    loading="lazy">
+
+                <img
+                    class="collage-03"
+                    src="imagenes/collage/home-collage-03.jpg"
+                    alt="Komorebi installation"
+                    loading="lazy">
+
+                <img
+                    class="collage-04"
+                    src="imagenes/collage/home-collage-04.jpg"
+                    alt="Komorebi editorial archive"
+                    loading="lazy">
+
+                <img
+                    class="collage-05"
+                    src="imagenes/collage/home-collage-05.jpg"
+                    alt="Komorebi digital detail"
+                    loading="lazy">
+
+                <img
+                    class="collage-06"
+                    src="imagenes/collage/home-collage-06.jpg"
+                    alt="Komorebi printed publication"
+                    loading="lazy">
+
+                <img
+                    class="collage-07"
+                    src="imagenes/collage/home-collage-07.jpg"
+                    alt="Komorebi on a smartphone"
+                    loading="lazy">
+
+                <img
+                    class="collage-08"
+                    src="imagenes/collage/home-collage-08.jpg"
+                    alt="Monochrome installation"
+                    loading="lazy">
+
+                <img
+                    class="collage-09"
+                    src="imagenes/collage/home-collage-09.jpg"
+                    alt="Visitor interacting with Komorebi"
+                    loading="lazy">
+
+                <img
+                    class="collage-10"
+                    src="imagenes/collage/home-collage-10.jpg"
+                    alt="Projected Komorebi maps"
+                    loading="lazy">
+
+                <img
+                    class="collage-11"
+                    src="imagenes/collage/home-collage-11.jpg"
+                    alt="Additional Komorebi detail"
+                    loading="lazy">
+
+                <img
+                    class="collage-12"
+                    src="imagenes/collage/home-collage-12.jpg"
+                    alt="Additional installation detail"
+                    loading="lazy">
 
             </div>
 
         </section>
 
-        <!-- ===================================
-             SECCIÓN 02 — PROJECT
-        =================================== -->
+        <div class="espacio-despues-collage" aria-hidden="true"></div>
 
-        <section id="project" class="seccion-pendiente">
-            <!-- Contenido pendiente -->
+        <!-- SECCIÓN 02 — PROJECT -->
+
+        <section id="project" class="seccion-proyecto contenedor">
+
+            <div class="texto-editorial">
+
+                <h2>Cultural Perceptions and Collective Imagination</h2>
+
+                <div class="texto-columnas">
+
+                    <div>
+
+                        <p>
+                            Our perception of different countries and cultures
+                            is often shaped by stereotypes, media
+                            representations and shared cultural references
+                            rather than direct experience. These influences
+                            contribute to the construction of a collective
+                            imagination, a system of shared ideas through
+                            which we interpret unfamiliar places. While
+                            collective imagination includes cultural
+                            associations, stereotypes simplify these ideas
+                            into fixed and generalized representations that
+                            rarely capture the complexity of reality.
+                        </p>
+
+                        <p>
+                            Every territory has its own historical, social and
+                            cultural identity, constantly evolving through
+                            traditions, generational changes and contemporary
+                            influences. However, the images associated with
+                            a country often overlook its internal diversity,
+                            creating a distance between how a place is
+                            imagined and how it is actually experienced.
+                            Recognizing this difference is essential to
+                            developing a more critical and nuanced
+                            understanding of cultural identities.
+                        </p>
+
+                    </div>
+
+                    <div>
+
+                        <p>
+                            <strong>KOMOREBI</strong> explores this relationship
+                            through an interactive and generative experience
+                            inspired by Japan. Users create imaginary
+                            territories by adjusting geographical, demographic
+                            and sociocultural parameters, transforming their
+                            preconceived ideas into unique visual compositions.
+                            Through a playful and educational approach,
+                            the project encourages users to question how
+                            their perceptions are constructed and how these
+                            interpretations may differ from the realities
+                            of existing territories.
+                        </p>
+
+                        <p>
+                            Rather than rejecting collective imagination,
+                            KOMOREBI uses it as a creative opportunity to
+                            experiment and reinterpret familiar cultural
+                            references. Through a shared public archive,
+                            individual creations form a collective visual
+                            landscape that reveals different ways of imagining
+                            places. Ultimately, the project connects
+                            creativity, interaction and cultural reflection,
+                            encouraging users to look beyond stereotypes
+                            while celebrating the possibilities of
+                            imaginary worlds.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CARRUSEL 01 — ORDENADOR -->
+
+            <div
+                class="carrusel carrusel-uno"
+                data-carousel="uno"
+                aria-label="Komorebi digital archive slideshow">
+
+                <img
+                    src="imagenes/carrusel_uno/home-slider-01-01.jpg"
+                    alt="Komorebi archive displayed on a laptop">
+
+            </div>
+
+            <!-- INSTALACIÓN Y ARCHIVO EDITORIAL -->
+
+            <div class="bloque-instalacion">
+
+                <h2>Live Installation and the Komorebi Editorial Archive</h2>
+
+                <div class="texto-columnas">
+
+                    <p>
+                        The <strong>live installation of Komorebi</strong>
+                        extends the digital experience into a physical
+                        environment, transforming generative map-making
+                        into a collective, immersive, and interactive
+                        process. Through a computer connected to a
+                        large-scale projection, visitors can explore the
+                        system by adjusting different parameters and
+                        observing how their choices influence the visual
+                        composition in real time. Each interaction generates
+                        a unique representation, combining cartographic
+                        structures, fluid colors, and evolving patterns
+                        inspired by the relationship between light, nature,
+                        and territory. By bringing the project into a shared
+                        space, the installation encourages active
+                        participation and collective reflection on how
+                        cultural, geographical, and environmental factors
+                        shape our perception of a place. The resulting
+                        compositions become temporary visual
+                        interpretations, constantly changing through the
+                        interaction between the audience and the generative
+                        system. This continuous transformation highlights
+                        the relationship between individual perception and
+                        collective experience, turning the installation into
+                        a living visual archive shaped by its participants
+                        and their unique creative interactions.
+                    </p>
+
+                    <p>
+                        Complementing the live installation,
+                        <strong>Komorebi Archive</strong> is an experimental
+                        editorial publication that documents the project's
+                        research, conceptual development, creative process,
+                        and visual experimentation. Conceived as a physical
+                        extension of the digital experience, the book
+                        explores the relationship between materiality,
+                        perception, and cultural interpretation through
+                        the use of lightweight, translucent paper. Its
+                        pages allow images, texts, and generative
+                        cartographies to overlap, creating compositions
+                        that continuously change as the reader moves
+                        through the publication. This layering becomes
+                        a visual metaphor for the cultural filters through
+                        which we observe and interpret a territory,
+                        suggesting that our understanding of a place is
+                        never completely neutral, but shaped by multiple
+                        perspectives and layers of information. Through
+                        transparency, light, and superposition, the
+                        publication translates the conceptual foundations
+                        of Komorebi into a tactile experience, where the
+                        act of turning each page reveals, conceals, and
+                        transforms the visual narrative, encouraging
+                        deeper reflection on cultural perception.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- CARRUSEL 02 — MAPAS -->
+
+            <div
+                class="carrusel carrusel-dos"
+                data-carousel="dos"
+                aria-label="Generative monochrome map slideshow">
+
+                <img
+                    src="imagenes/carrusel_dos/home-slider-02-01.jpg"
+                    alt="Monochrome generative map">
+
+            </div>
+
+            <!-- ELEMENTO JAPONÉS -->
+
+            <div class="kanji" lang="ja">
+                （木漏れ日）
+            </div>
+
         </section>
 
-        <!-- ===================================
-             SECCIÓN 03 — ABOUT CREATOR
-        =================================== -->
+        <!-- SECCIÓN 03 — ABOUT CREATOR -->
 
-        <section id="creator" class="seccion-pendiente">
-            <!-- Contenido pendiente -->
+        <section id="creator" class="seccion-creator contenedor">
+
+            <h2>About creator</h2>
+
+            <div class="creator-layout">
+
+                <img
+                    class="creator-foto"
+                    src="imagenes/img-about-creator.jpg"
+                    alt="Portrait of Celia Pons Rico"
+                    loading="lazy">
+
+                <div class="creator-texto">
+
+                    <p>
+                        Celia Pons Rico is a graphic designer based in
+                        Madrid, Spain, with a particular interest in
+                        generative design, field research, and the
+                        exploration of visual communication as a means
+                        of expressing complex concepts and meaningful
+                        ideas. Her creative practice focuses on
+                        establishing connections between visual
+                        experimentation, conceptual thinking, and
+                        contemporary cultural and social contexts.
+                        Through an interdisciplinary approach, she
+                        explores how graphic design can move beyond
+                        its traditional communicative and aesthetic
+                        functions to become a tool for investigation
+                        and critical reflection.
+                    </p>
+
+                    <p>
+                        Her work is driven by the belief that design
+                        should extend beyond visual appeal, seeking to
+                        develop projects grounded in research,
+                        experimentation, and conceptual depth. Rather
+                        than approaching aesthetics as an isolated
+                        objective, she considers visual language an
+                        essential medium through which ideas, narratives,
+                        and perspectives can be explored and communicated.
+                        By combining emerging technologies, experimental
+                        methodologies, and research-based processes,
+                        she aims to challenge conventional approaches
+                        to graphic design and create experiences that
+                        encourage interaction, questioning, and a deeper
+                        understanding of the subjects they address.
+                    </p>
+
+                </div>
+
+            </div>
+
         </section>
 
     </main>
+
+    <!-- PIE DE PÁGINA -->
+
+    <footer class="pie-pagina">
+
+        <span>Komorebi project</span>
+
+        <span lang="ja">（木漏れ日）</span>
+
+        <span>Celia Pons Rico</span>
+
+    </footer>
+
+    <!-- INTERACCIÓN DEL MAPA DE FONDO DEL COLLAGE -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const collage = document.querySelector(".collage");
+            const mapa = collage?.querySelector(".collage-mapa-fondo");
+            const home = document.querySelector(".seccion-home");
+            const cabecera = document.querySelector(".cabecera");
+
+            if (!collage || !mapa || !home) return;
+            if (!window.matchMedia("(hover: hover)").matches) return;
+
+            const imagenesCollage = Array.from(
+                collage.querySelectorAll("img")
+            );
+
+            function actualizarPosicion(evento) {
+                const rectMapa = mapa.getBoundingClientRect();
+
+                const x = evento.clientX - rectMapa.left;
+                const y = evento.clientY - rectMapa.top;
+
+                collage.style.setProperty("--mapa-x", `${x}px`);
+                collage.style.setProperty("--mapa-y", `${y}px`);
+            }
+
+            function comprobarCursor(evento) {
+                const rectMapa = mapa.getBoundingClientRect();
+
+                const limiteSuperior = cabecera
+                    ? cabecera.getBoundingClientRect().bottom
+                    : rectMapa.top;
+
+                const limiteInferior = Math.max(
+                    collage.getBoundingClientRect().bottom,
+                    ...imagenesCollage.map(
+                        imagen => imagen.getBoundingClientRect().bottom
+                    )
+                );
+
+                const dentroHorizontal =
+                    evento.clientX >= rectMapa.left &&
+                    evento.clientX <= rectMapa.right;
+
+                const dentroVertical =
+                    evento.clientY >= limiteSuperior &&
+                    evento.clientY <= limiteInferior;
+
+                if (dentroHorizontal && dentroVertical) {
+                    actualizarPosicion(evento);
+                    collage.classList.add("mapa-activo");
+                } else {
+                    collage.classList.remove("mapa-activo");
+                }
+            }
+
+            document.addEventListener("pointermove", evento => {
+                if (evento.pointerType === "touch") return;
+
+                comprobarCursor(evento);
+            }, { passive: true });
+
+            document.addEventListener("pointerleave", () => {
+                collage.classList.remove("mapa-activo");
+            });
+
+            window.addEventListener("blur", () => {
+                collage.classList.remove("mapa-activo");
+            });
+        });
+    </script>
 
 </body>
 

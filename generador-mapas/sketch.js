@@ -135,6 +135,53 @@ function windowResized() {
 }
 
 // =========================================
+// SINCRONIZAR EL LIENZO CON SU CONTENEDOR
+// =========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+    const contenedor = document.getElementById("lienzo");
+
+    if (!contenedor) return;
+
+    const observadorLienzo = new ResizeObserver(() => {
+        const seleccion =
+            window.KomorebiTerritorios?.obtenerSeleccion();
+
+        if (seleccion?.modo !== "territory") return;
+
+        if (
+            typeof width === "undefined" ||
+            typeof height === "undefined" ||
+            width <= 0 ||
+            height <= 0
+        ) {
+            return;
+        }
+
+        const ancho = Math.max(1, contenedor.clientWidth);
+        const alto = Math.max(1, contenedor.clientHeight);
+
+        if (ancho === width && alto === height) return;
+
+        resizeCanvas(ancho, alto);
+
+        if (territorioVectorial) {
+            aplicarGeometriaTerritorio();
+        }
+
+        reiniciarCacheGeometriaMapa();
+
+        if (typeof reiniciarTexturaTerritorial === "function") {
+            reiniciarTexturaTerritorial();
+        }
+
+        redraw();
+    });
+
+    observadorLienzo.observe(contenedor);
+});
+
+// =========================================
 // DIBUJAR MAPA
 // =========================================
 

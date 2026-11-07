@@ -9,7 +9,9 @@
     <title>KOMOREBI — Archive</title>
 
     <link rel="stylesheet" href="archivo.css">
+
     <script src="archivo.js" defer></script>
+    <script src="territorios.js" defer></script>
 </head>
 
 <body>
@@ -34,7 +36,9 @@
                 <a href="../generador-mapas/index.html">
                     Create your Komorebi map
                 </a>
-                <a href="index.html" class="activo"
+
+                <a href="index.html"
+                   class="activo"
                    aria-current="page">
                     Archive Komorebi
                 </a>
@@ -101,8 +105,6 @@
                 Okinawa
             </button>
 
-        
-
         </nav>
 
         <!-- ===================================
@@ -113,12 +115,32 @@
             id="territorio-destacado"
             class="territorio-destacado"
             aria-label="Territory map"
-            hidden
-        >
+            hidden>
+
             <div
                 id="mapa-territorial"
                 class="mapa-territorial">
             </div>
+
+            <button
+                id="territorio-principal-boton"
+                class="territorio-principal-boton"
+                type="button"
+                aria-label="More information about territory"
+                hidden>
+
+                <span class="territorio-principal-boton__contenido">
+
+                    <strong id="territorio-principal-nombre"></strong>
+
+                    <span>
+                        Click to see more information about territory
+                    </span>
+
+                </span>
+
+            </button>
+
         </section>
 
         <!-- ===================================
@@ -131,7 +153,6 @@
             hidden>
         </h2>
 
-
         <!-- ===================================
              GALERÍA DE MAPAS
         =================================== -->
@@ -142,13 +163,213 @@
             aria-label="Komorebi maps">
         </section>
 
-        <p id="mensaje-vacio"
-           class="mensaje-vacio"
-           hidden>
+        <p
+            id="mensaje-vacio"
+            class="mensaje-vacio"
+            hidden>
             No maps available in this category yet.
         </p>
 
     </main>
+
+    <!-- ===================================
+         BANNER ORIGINAL DE MAPAS PUBLICADOS
+    =================================== -->
+
+    <div
+        id="territorio-info-modal"
+        class="territorio-info-modal"
+        hidden>
+
+        <div
+            class="territorio-info-modal__fondo"
+            id="territorio-info-fondo">
+        </div>
+
+        <section
+            class="territorio-info-modal__contenido"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="territorio-info-titulo">
+
+            <button
+                type="button"
+                id="territorio-info-cerrar"
+                class="territorio-info-modal__cerrar"
+                aria-label="Close territory information">
+                &times;
+            </button>
+
+            <h2
+                id="territorio-info-titulo"
+                class="territorio-info-modal__titulo">
+            </h2>
+
+            <div class="territorio-info-modal__cuerpo">
+
+                <div class="territorio-info-modal__imagen">
+
+                    <img
+                        id="territorio-info-imagen"
+                        alt="Published imaginary territory">
+
+                </div>
+
+                <div class="territorio-info-modal__datos">
+
+                    <div class="territorio-info-modal__descripcion">
+
+                        <h3>
+                            Territory characteristics:
+                        </h3>
+
+                        <p id="territorio-info-texto"></p>
+
+                    </div>
+
+                    <p
+                        id="territorio-info-similitud"
+                        class="territorio-info-modal__similitud">
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- ===================================
+         BANNER DE LOS CINCO TERRITORIOS
+    =================================== -->
+
+    <div
+        id="territorio-principal-modal"
+        class="territorio-principal-modal"
+        hidden>
+
+        <div
+            id="territorio-principal-fondo"
+            class="territorio-principal-modal__fondo">
+        </div>
+
+        <section
+            class="territorio-principal-modal__contenido"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="territorio-principal-titulo"
+            tabindex="-1">
+
+            <button
+                id="territorio-principal-cerrar"
+                class="territorio-principal-modal__cerrar"
+                type="button"
+                aria-label="Close territory information">
+                &times;
+            </button>
+
+            <h2
+                id="territorio-principal-titulo"
+                class="territorio-principal-modal__titulo">
+            </h2>
+
+            <div class="territorio-principal-modal__cuerpo">
+
+                <!-- VÍDEO DEL TERRITORIO -->
+
+                <div class="territorio-principal-modal__video">
+
+                    <video
+                        id="territorio-principal-video"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                        aria-label="Animated territory">
+                    </video>
+                    <div
+    id="territorio-principal-porcentajes"
+    class="territorio-principal-modal__porcentajes"
+    aria-label="Territory parameters">
+
+    <span id="perfil-modernidad"></span>
+    <span id="perfil-envejecimiento"></span>
+
+    <span id="perfil-urbanizacion"></span>
+    <span id="perfil-turismo"></span>
+
+    <span id="perfil-densidad"></span>
+    <span id="perfil-relieve"></span>
+
+</div>
+
+                </div>
+
+                <!-- INFORMACIÓN -->
+
+                <div class="territorio-principal-modal__datos">
+
+                    <div class="territorio-principal-modal__descripcion">
+
+                        <h3>Territory characteristics:</h3>
+
+                        <div id="territorio-principal-textos"></div>
+
+                    </div>
+
+                    <!-- TABLA -->
+
+                    <table class="territorio-principal-modal__tabla">
+
+                        <tbody>
+
+                            <tr>
+                                <th scope="row">Location</th>
+                                <td id="territorio-dato-localizacion"></td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Population</th>
+                                <td id="territorio-dato-poblacion"></td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Territorial Organization</th>
+                                <td id="territorio-dato-organizacion"></td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Characteristics</th>
+                                <td id="territorio-dato-caracteristicas"></td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- ===================================
+         FOOTER
+    =================================== -->
+
+    <footer class="pie-pagina">
+
+        <span>Komorebi project</span>
+
+        <span lang="ja">（木漏れ日）</span>
+
+        <span>Celia Pons Rico</span>
+
+    </footer>
 
 </body>
 

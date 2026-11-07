@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <!-- P5.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.11/p5.min.js"></script>
 
     <!-- SLIDERS -->
@@ -30,11 +31,20 @@
 
     <!-- ARCHIVO PÚBLICO -->
     <script src="publicar-archivo.js" defer></script>
+
+    <!-- CLOUDFLARE TURNSTILE -->
+    <script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+        defer>
+    </script>
 </head>
 
 <body>
 
-    <!-- CABECERA -->
+    <!-- ===================================
+         NAVEGACIÓN PRINCIPAL
+    =================================== -->
+
     <header class="cabecera">
 
         <a href="../index.html" class="logo">KKK</a>
@@ -48,39 +58,57 @@
             </div>
 
             <div class="grupo-nav">
-                <a href="index.html" class="activo" aria-current="page">
+
+                <a
+                    href="index.html"
+                    class="activo"
+                    aria-current="page">
                     Create your Komorebi map
                 </a>
+
                 <a href="../archivo/index.html">
                     Archive Komorebi
                 </a>
+
             </div>
 
         </nav>
+
     </header>
 
-    <!-- GENERADOR -->
+    <!-- ===================================
+         GENERADOR DE MAPAS
+    =================================== -->
+
     <main class="generador">
+
+        <!-- LIENZO -->
 
         <section class="area-mapa" aria-label="Map generator">
             <div id="lienzo"></div>
         </section>
+
+        <!-- PANEL DE CONTROLES -->
 
         <aside class="panel-controles">
 
             <div class="controles-principales">
 
                 <!-- OPCIONES SUPERIORES -->
+
                 <div class="opciones-superiores">
 
                     <button
                         type="button"
                         class="opcion-recrear"
-                        id="recrear-forma"
-                    >
+                        id="recrear-forma">
+
                         <span class="icono-recrear"></span>
                         <span>Recreate initial form</span>
+
                     </button>
+
+                    <!-- SELECCIÓN DEL MODO -->
 
                     <div class="selector-generacion">
 
@@ -91,35 +119,40 @@
                         <div
                             class="opciones-generacion"
                             role="radiogroup"
-                            aria-label="Map generation mode"
-                        >
+                            aria-label="Map generation mode">
 
                             <label class="opcion-generacion">
+
                                 <input
                                     type="radio"
                                     name="modo-generacion"
                                     value="random"
-                                    checked
-                                >
+                                    checked>
+
                                 <span>Random</span>
+
                             </label>
 
                             <label class="opcion-generacion">
+
                                 <input
                                     type="radio"
                                     name="modo-generacion"
-                                    value="territory"
-                                >
+                                    value="territory">
+
                                 <span>Territory</span>
+
                             </label>
 
                         </div>
 
+                        <!-- SELECCIÓN DE TERRITORIO -->
+
                         <div
                             class="contenedor-territorios"
                             id="contenedor-territorios"
-                            hidden
-                        >
+                            hidden>
+
                             <label for="territorio-seleccionado">
                                 Select Territory
                             </label>
@@ -131,157 +164,196 @@
                                 <option value="hokkaido">Hokkaidō</option>
                                 <option value="okinawa">Okinawa</option>
                             </select>
+
                         </div>
 
                     </div>
+
                 </div>
 
-                <!-- SLIDERS -->
+                <!-- ===================================
+                     SLIDERS
+                =================================== -->
+
                 <div class="lista-sliders">
 
-                    <!-- 01 -->
+                    <!-- 01 — TRADITIONAL / MODERN -->
+
                     <div class="control-slider">
+
                         <label for="tradicionModernidad">
                             Traditional or Modern
                         </label>
 
                         <div class="barra-slider">
+
                             <div class="relleno-slider"></div>
+
                             <input
                                 type="range"
                                 id="tradicionModernidad"
                                 min="0"
                                 max="100"
-                                value="50"
-                            >
+                                value="50">
+
                         </div>
 
                         <div class="extremos">
                             <span>TRADITIONAL</span>
                             <span>MODERN</span>
                         </div>
+
                     </div>
 
-                    <!-- 02 -->
+                    <!-- 02 — NATURAL / URBAN -->
+
                     <div class="control-slider">
+
                         <label for="entorno">
                             Natural or Urban Environment
                         </label>
 
                         <div class="barra-slider">
+
                             <div class="relleno-slider"></div>
+
                             <input
                                 type="range"
                                 id="entorno"
                                 min="0"
                                 max="100"
                                 value="50"
-                                oninput="actualizarNaturalUrbano(this.value)"
-                            >
+                                oninput="actualizarNaturalUrbano(this.value)">
+
                         </div>
 
                         <div class="extremos">
                             <span>NATURAL</span>
                             <span>URBAN</span>
                         </div>
+
                     </div>
 
-                    <!-- 03 -->
+                    <!-- 03 — POPULATION DENSITY -->
+
                     <div class="control-slider">
+
                         <label for="densidad">
                             Population Density
                         </label>
 
                         <div class="barra-slider">
+
                             <div class="relleno-slider"></div>
+
                             <input
                                 type="range"
                                 id="densidad"
                                 min="0"
                                 max="100"
-                                value="50"
-                            >
+                                value="50">
+
                         </div>
 
                         <div class="extremos">
                             <span>LOW</span>
                             <span>HIGH</span>
                         </div>
+
                     </div>
 
-                    <!-- 04 -->
+                    <!-- 04 — POPULATION AGE -->
+
                     <div class="control-slider">
+
                         <label for="edad">
                             Population Age
                         </label>
 
                         <div class="barra-slider">
+
                             <div class="relleno-slider"></div>
+
                             <input
                                 type="range"
                                 id="edad"
                                 min="0"
                                 max="100"
-                                value="50"
-                            >
+                                value="50">
+
                         </div>
 
                         <div class="extremos">
                             <span>YOUNG</span>
                             <span>AGED</span>
                         </div>
+
                     </div>
 
-                    <!-- 05 -->
+                    <!-- 05 — TOURISM INTENSITY -->
+
                     <div class="control-slider">
+
                         <label for="turismo">
                             Tourism Intensity
                         </label>
 
                         <div class="barra-slider">
+
                             <div class="relleno-slider"></div>
+
                             <input
                                 type="range"
                                 id="turismo"
                                 min="0"
                                 max="100"
-                                value="50"
-                            >
+                                value="50">
+
                         </div>
 
                         <div class="extremos">
                             <span>LOW</span>
                             <span>HIGH</span>
                         </div>
+
                     </div>
 
-                    <!-- 06 -->
+                    <!-- 06 — TERRAIN RELIEF -->
+
                     <div class="control-slider">
+
                         <label for="relieve">
                             Terrain Relief
                         </label>
 
                         <div class="barra-slider">
+
                             <div class="relleno-slider"></div>
+
                             <input
                                 type="range"
                                 id="relieve"
                                 min="0"
                                 max="100"
-                                value="50"
-                            >
+                                value="50">
+
                         </div>
 
                         <div class="extremos">
                             <span>FLAT</span>
                             <span>MOUNTAINOUS</span>
                         </div>
+
                     </div>
 
                 </div>
+
             </div>
 
-            <!-- ACCIONES -->
+            <!-- ===================================
+                 ACCIONES
+            =================================== -->
+
             <div class="acciones">
 
                 <button id="descargar-imagen" type="button">
@@ -302,215 +374,223 @@
             </div>
 
         </aside>
+
     </main>
 
-    
-<!-- ===================================
-     BANNER DE COMPARACIÓN TERRITORIAL
-=================================== -->
+    <!-- ===================================
+         BANNER DE COMPARACIÓN TERRITORIAL
+    =================================== -->
 
-<div
-    id="archivo-modal"
-    class="archivo-modal"
-    hidden
->
     <div
-        class="archivo-modal__fondo"
-        data-cerrar-archivo
-    ></div>
+        id="archivo-modal"
+        class="archivo-modal"
+        hidden>
 
-    <section
-        class="archivo-modal__panel"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="archivo-resultado"
-    >
-
-        <button
-            type="button"
-            id="archivo-cerrar"
-            class="archivo-modal__cerrar"
-            aria-label="Close comparison"
-        >
-            &times;
-        </button>
-
-        <h2
-            id="archivo-resultado"
-            class="archivo-modal__titulo"
-        ></h2>
-
-        <div class="archivo-modal__contenido">
-
-            <!-- VISTA PREVIA DEL MAPA -->
-            <div class="archivo-modal__vista">
-
-                <img
-                    id="archivo-captura"
-                    alt="Preview of your generated Komorebi map"
-                    hidden
-                >
-
-                <p id="archivo-captura-espera">
-                    Preparing map preview…
-                </p>
-
-            </div>
-
-            <!-- ANÁLISIS TERRITORIAL -->
-            <div class="archivo-modal__analisis">
-
-                <div class="archivo-modal__grupo">
-                    <h3>Elements in common</h3>
-                    <p id="archivo-coincidencias"></p>
-                </div>
-
-                <div class="archivo-modal__grupo">
-                    <h3>Elements in contrast</h3>
-                    <p id="archivo-diferencias"></p>
-                </div>
-
-                <p class="archivo-modal__mensaje">
-                    Your map is more than a comparison.
-                    Every difference contributes to a
-                    new imaginary territory.
-                </p>
-
-                <button
-                    type="button"
-                    id="archivo-crear-territorio"
-                    class="archivo-modal__publicar"
-                >
-                    Create your new Territory
-                </button>
-
-            </div>
-
+        <div
+            class="archivo-modal__fondo"
+            data-cerrar-archivo>
         </div>
 
-    </section>
-</div>
+        <section
+            class="archivo-modal__panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="archivo-resultado">
 
+            <button
+                type="button"
+                id="archivo-cerrar"
+                class="archivo-modal__cerrar"
+                aria-label="Close comparison">
+                &times;
+            </button>
 
-<!-- ===================================
-     SEGUNDO BANNER — CREAR TERRITORIO
-=================================== -->
+            <h2
+                id="archivo-resultado"
+                class="archivo-modal__titulo">
+            </h2>
 
-<div
-    id="territorio-modal"
-    class="archivo-modal"
-    hidden
->
-    <div
-        class="archivo-modal__fondo"
-        data-cerrar-territorio
-    ></div>
+            <div class="archivo-modal__contenido">
 
-    <section
-        class="archivo-modal__panel"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="territorio-resultado"
-    >
+                <!-- VISTA PREVIA -->
 
-        <button
-            type="button"
-            id="territorio-cerrar"
-            class="archivo-modal__cerrar"
-            aria-label="Close territory creation"
-        >
-            &times;
-        </button>
+                <div class="archivo-modal__vista">
 
-        <!-- MISMO TÍTULO DEL PRIMER BANNER -->
-        <h2
-            id="territorio-resultado"
-            class="archivo-modal__titulo"
-        ></h2>
+                    <img
+                        id="archivo-captura"
+                        alt="Preview of your generated Komorebi map"
+                        hidden>
 
-        <div class="archivo-modal__contenido">
+                    <p id="archivo-captura-espera">
+                        Preparing map preview…
+                    </p>
 
-            <!-- MISMA CAPTURA DEL MAPA -->
-            <div class="archivo-modal__vista">
+                </div>
 
-                <img
-                    id="territorio-captura"
-                    alt="Preview of your imaginary territory"
-                    hidden
-                >
+                <!-- ANÁLISIS TERRITORIAL -->
 
-                <p id="territorio-captura-espera">
-                    Preparing map preview…
-                </p>
+                <div class="archivo-modal__analisis">
+
+                    <div class="archivo-modal__grupo">
+
+                        <h3>Elements in common</h3>
+
+                        <p id="archivo-coincidencias"></p>
+
+                    </div>
+
+                    <div class="archivo-modal__grupo">
+
+                        <h3>Elements in contrast</h3>
+
+                        <p id="archivo-diferencias"></p>
+
+                    </div>
+
+                    <p class="archivo-modal__mensaje">
+                        Your map is more than a comparison.
+                        Every difference contributes to a
+                        new imaginary territory.
+                    </p>
+
+                    <button
+                        type="button"
+                        id="archivo-crear-territorio"
+                        class="archivo-modal__publicar">
+                        Create your new Territory
+                    </button>
+
+                </div>
 
             </div>
 
-            <!-- FORMULARIO DEL TERRITORIO -->
-            <form
-                id="territorio-formulario"
-                class="archivo-modal__analisis territorio-formulario"
-            >
+        </section>
 
-                <div class="archivo-modal__grupo">
+    </div>
 
-                    <label for="territorio-nombre">
-                        Name of the Territory
-                    </label>
+    <!-- ===================================
+         BANNER DE CREACIÓN DE TERRITORIO
+    =================================== -->
 
-                    <input
-                        type="text"
-                        id="territorio-nombre"
-                        name="nombre"
-                        placeholder="Name of the territory"
-                        maxlength="60"
-                        autocomplete="off"
-                        required
-                    >
+    <div
+        id="territorio-modal"
+        class="archivo-modal"
+        hidden>
 
-                </div>
-
-                <div class="archivo-modal__grupo">
-
-                    <label for="territorio-caracteristicas">
-                        Main characteristics<br>
-                        of the territory
-                    </label>
-
-                    <textarea
-                        id="territorio-caracteristicas"
-                        name="caracteristicas"
-                        placeholder="Main characteristics of the territory"
-                        maxlength="500"
-                        rows="4"
-                        required
-                    ></textarea>
-
-                </div>
-
-                <button
-                    type="submit"
-                    id="territorio-publicar"
-                    class="archivo-modal__publicar"
-                >
-                    Upload your Territory
-                </button>
-
-                <p
-                    id="territorio-estado"
-                    class="territorio-estado"
-                    role="status"
-                    hidden
-                ></p>
-
-            </form>
-
+        <div
+            class="archivo-modal__fondo"
+            data-cerrar-territorio>
         </div>
 
-    </section>
-</div>
+        <section
+            class="archivo-modal__panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="territorio-resultado">
 
+            <button
+                type="button"
+                id="territorio-cerrar"
+                class="archivo-modal__cerrar"
+                aria-label="Close territory creation">
+                &times;
+            </button>
 
-    <!-- INTERACCIONES DE LA INTERFAZ -->
+            <h2
+                id="territorio-resultado"
+                class="archivo-modal__titulo">
+            </h2>
+
+            <div class="archivo-modal__contenido">
+
+                <!-- VISTA PREVIA -->
+
+                <div class="archivo-modal__vista">
+
+                    <img
+                        id="territorio-captura"
+                        alt="Preview of your imaginary territory"
+                        hidden>
+
+                    <p id="territorio-captura-espera">
+                        Preparing map preview…
+                    </p>
+
+                </div>
+
+                <!-- FORMULARIO -->
+
+                <form
+                    id="territorio-formulario"
+                    class="archivo-modal__analisis territorio-formulario">
+
+                    <div class="archivo-modal__grupo">
+
+                        <label for="territorio-nombre">
+                            Name of the Territory
+                        </label>
+
+                        <input
+                            type="text"
+                            id="territorio-nombre"
+                            name="nombre"
+                            placeholder="Name of the territory"
+                            maxlength="60"
+                            autocomplete="off"
+                            required>
+
+                    </div>
+
+                    <div class="archivo-modal__grupo">
+
+                        <label for="territorio-caracteristicas">
+                            Main characteristics<br>
+                            of the territory
+                        </label>
+
+                        <textarea
+                            id="territorio-caracteristicas"
+                            name="caracteristicas"
+                            placeholder="Main characteristics of the territory"
+                            maxlength="500"
+                            rows="4"
+                            required></textarea>
+
+                    </div>
+
+                    <!-- CLOUDFLARE TURNSTILE -->
+
+                    <div
+                        id="territorio-turnstile"
+                        class="territorio-turnstile">
+                    </div>
+
+                    <button
+                        type="submit"
+                        id="territorio-publicar"
+                        class="archivo-modal__publicar">
+                        Upload your Territory
+                    </button>
+
+                    <p
+                        id="territorio-estado"
+                        class="territorio-estado"
+                        role="status"
+                        hidden>
+                    </p>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- ===================================
+         INTERACCIONES DE LA INTERFAZ
+    =================================== -->
+
     <script>
         const sliders = document.querySelectorAll(
             '.control-slider input[type="range"]'
@@ -563,5 +643,20 @@
             });
     </script>
 
+    <!-- ===================================
+         FOOTER
+    =================================== -->
+
+    <footer class="pie-pagina">
+
+        <span>Komorebi project</span>
+
+        <span lang="ja">（木漏れ日）</span>
+
+        <span>Celia Pons Rico</span>
+
+    </footer>
+
 </body>
+
 </html>

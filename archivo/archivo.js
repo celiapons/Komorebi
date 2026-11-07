@@ -1,20 +1,22 @@
 
 /* =========================================
    KOMOREBI — PUBLIC ARCHIVE
-
-   - Galería de mapas
-   - Distribución masonry
-   - Filtros por territorio
-   - Perfiles de los seis sliders
-   - Clasificación por similitud
-   - Espacio para mapas animados
-
-   Los registros actuales son de ejemplo.
 ========================================= */
 
 (() => {
     "use strict";
 
+    // =====================================
+    // CONFIGURACIÓN DE SUPABASE
+    // =====================================
+
+    const SUPABASE_URL =
+        "https://tstwlvkyqtwzdvivunpq.supabase.co";
+
+    const SUPABASE_PUBLIC_KEY =
+        "sb_publishable_mZu8UESzqrEw2sQsek0wkg_cthI9yL6";
+
+    const BUCKET = "imagenes-territorios";
 
     // =====================================
     // PERFILES TERRITORIALES
@@ -28,152 +30,32 @@
         Okinawa: [40, 35, 50, 40, 85, 55]
     };
 
-    
-const videosTerritoriales = {
-    Tokyo: "assets/tokyo.mp4",
-    Kyoto: "assets/kyoto.mp4",
-    Osaka: "assets/osaka.mp4",
-    "Hokkaidō": "assets/hokkaido.mp4",
-    Okinawa: "assets/okinawa.mp4"
-};
-
-
-
     // =====================================
-    // CLASIFICAR MAPA POR SIMILITUD
+    // VÍDEOS TERRITORIALES
     // =====================================
 
-    function clasificarMapa(valores) {
-        if (
-            !Array.isArray(valores) ||
-            valores.length !== 6 ||
-            !valores.every(
-                valor =>
-                    Number.isFinite(valor) &&
-                    valor >= 0 &&
-                    valor <= 100
-            )
-        ) {
-            return null;
-        }
-
-        let territorioCercano = null;
-        let distanciaMinima = Infinity;
-
-        for (const [territorio, perfil] of
-            Object.entries(perfilesTerritoriales)) {
-
-            const distancia = Math.sqrt(
-                valores.reduce(
-                    (total, valor, indice) => {
-                        return total +
-                            (valor - perfil[indice]) ** 2;
-                    },
-                    0
-                ) / valores.length
-            );
-
-            if (distancia < distanciaMinima) {
-                distanciaMinima = distancia;
-                territorioCercano = territorio;
-            }
-        }
-
-        return territorioCercano;
-    }
-
+    const videosTerritoriales = {
+        Tokyo: "assets/tokyo.mp4",
+        Kyoto: "assets/kyoto.mp4",
+        Osaka: "assets/osaka.mp4",
+        "Hokkaidō": "assets/hokkaido.mp4",
+        Okinawa: "assets/okinawa.mp4"
+    };
 
     // =====================================
-    // MAPAS DE EJEMPLO
+    // PROPORCIONES DE LOS MARCOS
     // =====================================
 
-    const mapas = [
-        {
-            id: "mapa-001",
-            imagen: "mapas/mapa-01.jpg",
-            ubicacion: "Tokyo",
-            fecha: "2026-11-03",
-            proporcion: 1.15
-        },
-        {
-            id: "mapa-002",
-            imagen: "mapas/mapa-02.jpg",
-            ubicacion: "Kyoto",
-            fecha: "2026-11-03",
-            proporcion: 1.55
-        },
-        {
-            id: "mapa-003",
-            imagen: "mapas/mapa-03.jpg",
-            ubicacion: "Osaka",
-            fecha: "2026-11-03",
-            proporcion: 0.95
-        },
-        {
-            id: "mapa-004",
-            imagen: "mapas/mapa-04.jpg",
-            ubicacion: "Hokkaidō",
-            fecha: "2026-11-03",
-            proporcion: 1.3
-        },
-        {
-            id: "mapa-005",
-            imagen: "mapas/mapa-05.jpg",
-            ubicacion: "Okinawa",
-            fecha: "2026-11-02",
-            proporcion: 0.9
-        },
-        {
-            id: "mapa-006",
-            imagen: "mapas/mapa-06.jpg",
-            ubicacion: "Tokyo",
-            fecha: "2026-11-02",
-            proporcion: 1.1
-        },
-        {
-            id: "mapa-007",
-            imagen: "mapas/mapa-07.jpg",
-            ubicacion: "Kyoto",
-            fecha: "2026-11-02",
-            proporcion: 1.35
-        },
-        {
-            id: "mapa-008",
-            imagen: "mapas/mapa-08.jpg",
-            ubicacion: "Osaka",
-            fecha: "2026-11-02",
-            proporcion: 1.0
-        },
-        {
-            id: "mapa-009",
-            imagen: "mapas/mapa-09.jpg",
-            ubicacion: "Hokkaidō",
-            fecha: "2026-11-01",
-            proporcion: 1.45
-        },
-        {
-            id: "mapa-010",
-            imagen: "mapas/mapa-10.jpg",
-            ubicacion: "Okinawa",
-            fecha: "2026-11-01",
-            proporcion: 1.05
-        },
-        {
-            id: "mapa-011",
-            imagen: "mapas/mapa-11.jpg",
-            ubicacion: "Tokyo",
-            fecha: "2026-11-01",
-            proporcion: 1.2
-        },
-        {
-            id: "mapa-012",
-            imagen: "mapas/mapa-12.jpg",
-            ubicacion: "Kyoto",
-            fecha: "2026-11-01",
-            proporcion: 0.85
-        }
+    const proporciones = [
+        1.15,
+        1.35,
+        0.9,
+        1.3,
+        0.8,
+        1.45,
+        1.1,
+        1.35
     ];
-
 
     // =====================================
     // ELEMENTOS DEL DOM
@@ -199,190 +81,647 @@ const videosTerritoriales = {
         "titulo-galeria"
     );
 
-    
-const contenedorVideo = document.getElementById(
-    "mapa-territorial"
-);
+    const contenedorVideo = document.getElementById(
+        "mapa-territorial"
+    );
 
+    // =====================================
+    // ELEMENTOS DEL BANNER
+    // =====================================
 
+    const modal = document.getElementById(
+        "territorio-info-modal"
+    );
+
+    const fondoModal = document.getElementById(
+        "territorio-info-fondo"
+    );
+
+    const cerrarModal = document.getElementById(
+        "territorio-info-cerrar"
+    );
+
+    const tituloModal = document.getElementById(
+        "territorio-info-titulo"
+    );
+
+    const imagenModal = document.getElementById(
+        "territorio-info-imagen"
+    );
+
+    const textoModal = document.getElementById(
+        "territorio-info-texto"
+    );
+
+    const similitudModal = document.getElementById(
+        "territorio-info-similitud"
+    );
 
     // =====================================
     // ESTADO DEL ARCHIVO
     // =====================================
 
+    let mapas = [];
     let filtroActual = "Recents";
-
-    
-const observadorVideos = new IntersectionObserver(
-    entradas => {
-        entradas.forEach(entrada => {
-            const video = entrada.target;
-
-            if (entrada.isIntersecting && !document.hidden) {
-                video.play().catch(() => {});
-            } else {
-                video.pause();
-            }
-        });
-    },
-    {
-        threshold: 0.1
-    }
-);
-
-document.addEventListener("visibilitychange", () => {
-    document.querySelectorAll(
-        ".tarjeta-mapa video"
-    ).forEach(video => {
-        if (document.hidden) {
-            video.pause();
-        } else {
-            observadorVideos.unobserve(video);
-            observadorVideos.observe(video);
-        }
-    });
-});
-
-
+    let cargando = false;
+    let errorCarga = false;
+    let elementoAnterior = null;
 
     // =====================================
-    // ACTUALIZAR VISTA TERRITORIAL
+    // OBSERVADOR DE VÍDEOS
     // =====================================
 
-    
-function actualizarVistaTerritorial() {
-    const rutaVideo = videosTerritoriales[filtroActual];
-    const esTerritorio = Boolean(rutaVideo);
+    const observadorVideos = new IntersectionObserver(
+        entradas => {
+            entradas.forEach(entrada => {
+                const video = entrada.target;
 
-    if (territorioDestacado) {
-        territorioDestacado.hidden = !esTerritorio;
-    }
-
-    if (tituloGaleria) {
-        tituloGaleria.hidden = !esTerritorio;
-
-        if (esTerritorio) {
-            tituloGaleria.textContent =
-                `Imaginary territories related with ${filtroActual}`;
+                if (
+                    entrada.isIntersecting &&
+                    !document.hidden
+                ) {
+                    video.play().catch(() => {});
+                } else {
+                    video.pause();
+                }
+            });
+        },
+        {
+            threshold: 0.1
         }
-    }
-
-    if (!contenedorVideo) return;
-
-    const videoActual = contenedorVideo.querySelector("video");
-
-    if (videoActual?.dataset.territorio === filtroActual) {
-        return;
-    }
-
-    if (videoActual) {
-        videoActual.pause();
-    }
-
-    contenedorVideo.replaceChildren();
-
-    if (!esTerritorio) return;
-
-    const video = document.createElement("video");
-
-    video.src = rutaVideo;
-    video.dataset.territorio = filtroActual;
-
-    video.autoplay = true;
-    video.muted = true;
-    video.defaultMuted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "auto";
-
-    video.setAttribute("aria-label",
-        `Animated imaginary territory of ${filtroActual}`
     );
 
-    contenedorVideo.appendChild(video);
-
-    video.play().catch(() => {});
-}
-
+    document.addEventListener(
+        "visibilitychange",
+        () => {
+            document.querySelectorAll(
+                ".tarjeta-mapa video"
+            ).forEach(video => {
+                if (document.hidden) {
+                    video.pause();
+                } else {
+                    observadorVideos.unobserve(video);
+                    observadorVideos.observe(video);
+                }
+            });
+        }
+    );
 
     // =====================================
-    // CREAR TARJETA
+    // URL DE IMAGEN EN STORAGE
     // =====================================
 
-    
-function crearTarjeta(mapa) {
-    const tarjeta = document.createElement("article");
+    function obtenerURLImagen(ruta) {
+        if (!ruta || typeof ruta !== "string") {
+            return null;
+        }
 
-    tarjeta.className = "tarjeta-mapa";
-    tarjeta.dataset.id = mapa.id;
-    tarjeta.dataset.ubicacion = mapa.ubicacion || "";
+        const rutaCodificada = ruta
+            .split("/")
+            .map(segmento =>
+                encodeURIComponent(segmento)
+            )
+            .join("/");
 
-    const contenedor = document.createElement("div");
-    contenedor.className = "imagen-mapa";
+        return (
+            `${SUPABASE_URL}/storage/v1/object/public/` +
+            `${BUCKET}/${rutaCodificada}`
+        );
+    }
 
-    const proporcion = mapa.proporcion || 1;
+    // =====================================
+    // CLASIFICACIÓN POR SIMILITUD
+    // =====================================
 
-    contenedor.style.aspectRatio =
-        `1 / ${proporcion}`;
+    function clasificarMapa(valores) {
+        if (
+            !Array.isArray(valores) ||
+            valores.length !== 6 ||
+            !valores.every(
+                valor =>
+                    Number.isFinite(valor) &&
+                    valor >= 0 &&
+                    valor <= 100
+            )
+        ) {
+            return null;
+        }
 
-    if (mapa.video) {
+        let territorioCercano = null;
+        let distanciaMinima = Infinity;
+
+        for (const [territorio, perfil] of
+            Object.entries(perfilesTerritoriales)) {
+
+            const distancia = Math.sqrt(
+                valores.reduce(
+                    (total, valor, indice) =>
+                        total +
+                        (valor - perfil[indice]) ** 2,
+                    0
+                ) / valores.length
+            );
+
+            if (distancia < distanciaMinima) {
+                distanciaMinima = distancia;
+                territorioCercano = territorio;
+            }
+        }
+
+        return territorioCercano;
+    }
+
+    // =====================================
+    // FORMATO DE SIMILITUD
+    // =====================================
+
+    function obtenerPorcentaje(mapa) {
+        const valor = Number(mapa.similitud);
+
+        if (!Number.isFinite(valor)) {
+            return 0;
+        }
+
+        return Math.round(
+            Math.max(0, Math.min(100, valor))
+        );
+    }
+
+    // =====================================
+    // CONVERTIR REGISTRO DE SUPABASE
+    // =====================================
+
+    function prepararMapa(registro, indice) {
+        const sliders = [
+            registro.tradicion_modernidad,
+            registro.natural_urbano,
+            registro.densidad_poblacion,
+            registro.edad_poblacion,
+            registro.intensidad_turistica,
+            registro.relieve_terreno
+        ].map(Number);
+
+        const territorioCalculado =
+            clasificarMapa(sliders);
+
+        const territorio =
+            territorioCalculado ||
+            registro.territorio_similar;
+
+        return {
+            id: registro.id,
+            nombre: registro.nombre,
+            descripcion: registro.descripcion,
+            imagen: obtenerURLImagen(
+                registro.imagen_path
+            ),
+            ubicacion: territorio,
+            fecha: registro.fecha_creacion,
+            proporcion:
+                proporciones[indice % proporciones.length],
+            sliders,
+            similitud: registro.similitud,
+            video: null
+        };
+    }
+
+    // =====================================
+    // CARGAR MAPAS DESDE SUPABASE
+    // =====================================
+
+    async function cargarMapas() {
+        if (cargando) return;
+
+        cargando = true;
+        errorCarga = false;
+
+        renderizarGaleria();
+
+        try {
+            const campos = [
+                "id",
+                "nombre",
+                "descripcion",
+                "tradicion_modernidad",
+                "natural_urbano",
+                "densidad_poblacion",
+                "edad_poblacion",
+                "intensidad_turistica",
+                "relieve_terreno",
+                "territorio_similar",
+                "similitud",
+                "imagen_path",
+                "fecha_creacion"
+            ].join(",");
+
+            const url = new URL(
+                `${SUPABASE_URL}/rest/v1/territorios`
+            );
+
+            url.searchParams.set("select", campos);
+            url.searchParams.set(
+                "order",
+                "fecha_creacion.desc"
+            );
+
+            const respuesta = await fetch(
+                url.toString(),
+                {
+                    method: "GET",
+                    headers: {
+                        apikey: SUPABASE_PUBLIC_KEY,
+                        Accept: "application/json"
+                    },
+                    cache: "no-store"
+                }
+            );
+
+            if (!respuesta.ok) {
+                const detalle = await respuesta
+                    .text()
+                    .catch(() => "");
+
+                throw new Error(
+                    `Supabase ${respuesta.status}: ${detalle}`
+                );
+            }
+
+            const registros = await respuesta.json();
+
+            if (!Array.isArray(registros)) {
+                throw new Error(
+                    "Invalid archive response."
+                );
+            }
+
+            mapas = registros
+                .filter(registro =>
+                    registro.id &&
+                    registro.imagen_path
+                )
+                .map((registro, indice) =>
+                    prepararMapa(registro, indice)
+                );
+
+        } catch (error) {
+            console.error(
+                "KOMOREBI: Error loading archive",
+                error
+            );
+
+            errorCarga = true;
+            mapas = [];
+
+        } finally {
+            cargando = false;
+            renderizarGaleria();
+        }
+    }
+
+    // =====================================
+    // VISTA TERRITORIAL
+    // =====================================
+
+    function actualizarVistaTerritorial() {
+        const rutaVideo =
+            videosTerritoriales[filtroActual];
+
+        const esTerritorio = Boolean(rutaVideo);
+
+        if (territorioDestacado) {
+            territorioDestacado.hidden = !esTerritorio;
+        }
+
+        if (tituloGaleria) {
+            tituloGaleria.hidden = !esTerritorio;
+
+            if (esTerritorio) {
+                tituloGaleria.textContent =
+                    `Imaginary territories related with ${filtroActual}`;
+            }
+        }
+
+        if (!contenedorVideo) return;
+
+        const videoActual =
+            contenedorVideo.querySelector("video");
+
+        if (
+            videoActual?.dataset.territorio ===
+            filtroActual
+        ) {
+            return;
+        }
+
+        if (videoActual) {
+            videoActual.pause();
+        }
+
+        contenedorVideo.replaceChildren();
+
+        if (!esTerritorio) return;
+
         const video = document.createElement("video");
 
-        video.src = mapa.video;
+        video.src = rutaVideo;
+        video.dataset.territorio = filtroActual;
         video.autoplay = true;
         video.muted = true;
         video.defaultMuted = true;
         video.loop = true;
         video.playsInline = true;
-        video.preload = "metadata";
+        video.preload = "auto";
 
-        if (mapa.imagen) {
-            video.poster = mapa.imagen;
-        }
+        video.setAttribute(
+            "aria-label",
+            `Animated imaginary territory of ${filtroActual}`
+        );
 
-        video.addEventListener("loadedmetadata", () => {
-            if (video.videoWidth && video.videoHeight) {
-                contenedor.style.aspectRatio = "auto";
-            }
-        });
-
-        video.addEventListener("error", () => {
-            contenedor.classList.add("imagen-pendiente");
-            contenedor.textContent = "Video unavailable";
-        }, { once: true });
-
-        contenedor.appendChild(video);
-        observadorVideos.observe(video);
-
-    } else if (mapa.imagen) {
-        const imagen = document.createElement("img");
-
-        imagen.src = mapa.imagen;
-        imagen.alt =
-            `Komorebi map — ${mapa.ubicacion || "Archive"}`;
-
-        imagen.loading = "lazy";
-        imagen.decoding = "async";
-
-        imagen.addEventListener("load", () => {
-            contenedor.style.aspectRatio = "auto";
-        });
-
-        imagen.addEventListener("error", () => {
-            imagen.remove();
-            contenedor.classList.add("imagen-pendiente");
-            contenedor.textContent = "Map pending";
-        }, { once: true });
-
-        contenedor.appendChild(imagen);
+        contenedorVideo.appendChild(video);
+        video.play().catch(() => {});
     }
 
-    tarjeta.appendChild(contenedor);
+    // =====================================
+    // ABRIR BANNER DE INFORMACIÓN
+    // =====================================
 
-    return tarjeta;
-}
+    function abrirBanner(mapa) {
+        if (!modal || !mapa) return;
 
+        elementoAnterior = document.activeElement;
 
+        const nombre = mapa.nombre || "Untitled Territory";
+        const descripcion =
+            mapa.descripcion || "No description available.";
+
+        const territorio =
+            mapa.ubicacion || "Unknown territory";
+
+        const porcentaje = obtenerPorcentaje(mapa);
+
+        tituloModal.textContent =
+            `Territory of ${nombre}`;
+
+        imagenModal.src = mapa.imagen || "";
+        imagenModal.alt =
+            `Imaginary territory created by a user: ${nombre}`;
+
+        textoModal.textContent = descripcion;
+
+        similitudModal.replaceChildren();
+
+        const porcentajeDestacado =
+            document.createElement("strong");
+
+        porcentajeDestacado.textContent =
+            `${porcentaje}%`;
+
+        similitudModal.appendChild(
+            porcentajeDestacado
+        );
+
+        similitudModal.appendChild(
+            document.createTextNode(
+                ` similar to the territory of ${territorio}.`
+            )
+        );
+
+        modal.hidden = false;
+        document.body.classList.add("modal-abierto");
+
+        cerrarModal.focus();
+    }
+
+    // =====================================
+    // CERRAR BANNER
+    // =====================================
+
+    function cerrarBanner() {
+        if (!modal || modal.hidden) return;
+
+        modal.hidden = true;
+        document.body.classList.remove(
+            "modal-abierto"
+        );
+
+        if (
+            elementoAnterior &&
+            elementoAnterior.isConnected
+        ) {
+            elementoAnterior.focus();
+        }
+
+        elementoAnterior = null;
+    }
+
+    cerrarModal?.addEventListener(
+        "click",
+        cerrarBanner
+    );
+
+    fondoModal?.addEventListener(
+        "click",
+        cerrarBanner
+    );
+
+    document.addEventListener(
+        "keydown",
+        evento => {
+            if (!modal || modal.hidden) return;
+
+            if (evento.key === "Escape") {
+                cerrarBanner();
+            }
+
+            if (evento.key === "Tab") {
+                const elementos = Array.from(
+                    modal.querySelectorAll(
+                        "button, a[href], input, textarea, select, [tabindex]:not([tabindex='-1'])"
+                    )
+                ).filter(elemento =>
+                    !elemento.disabled &&
+                    elemento.getClientRects().length > 0
+                );
+
+                if (!elementos.length) return;
+
+                const primero = elementos[0];
+                const ultimo =
+                    elementos[elementos.length - 1];
+
+                if (
+                    evento.shiftKey &&
+                    document.activeElement === primero
+                ) {
+                    evento.preventDefault();
+                    ultimo.focus();
+                } else if (
+                    !evento.shiftKey &&
+                    document.activeElement === ultimo
+                ) {
+                    evento.preventDefault();
+                    primero.focus();
+                }
+            }
+        }
+    );
+
+    // =====================================
+    // CREAR OVERLAY DEL HOVER
+    // =====================================
+
+    function crearOverlay(mapa) {
+        const overlay =
+            document.createElement("div");
+
+        overlay.className =
+            "tarjeta-mapa__overlay";
+
+        const nombre =
+            document.createElement("h3");
+
+        nombre.className =
+            "tarjeta-mapa__nombre";
+
+        nombre.textContent =
+            mapa.nombre || "Untitled Territory";
+
+        const similitud =
+            document.createElement("p");
+
+        similitud.className =
+            "tarjeta-mapa__similitud";
+
+        similitud.textContent =
+            `${obtenerPorcentaje(mapa)}% similar to the territory of ${mapa.ubicacion || "Unknown"}.`;
+
+        const boton =
+            document.createElement("button");
+
+        boton.type = "button";
+
+        boton.className =
+            "tarjeta-mapa__boton";
+
+        boton.textContent =
+            "More information";
+
+        boton.setAttribute(
+            "aria-label",
+            `More information about ${mapa.nombre || "this territory"}`
+        );
+
+        boton.addEventListener(
+            "click",
+            () => abrirBanner(mapa)
+        );
+
+        overlay.append(
+            nombre,
+            similitud,
+            boton
+        );
+
+        return overlay;
+    }
+
+    // =====================================
+    // CREAR TARJETA
+    // =====================================
+
+    function crearTarjeta(mapa) {
+        const tarjeta =
+            document.createElement("article");
+
+        tarjeta.className = "tarjeta-mapa";
+        tarjeta.dataset.id = mapa.id;
+        tarjeta.dataset.ubicacion =
+            mapa.ubicacion || "";
+
+        const contenedor =
+            document.createElement("div");
+
+        contenedor.className = "imagen-mapa";
+
+        contenedor.style.aspectRatio =
+            `1 / ${mapa.proporcion || 1}`;
+
+        if (mapa.video) {
+            const video =
+                document.createElement("video");
+
+            video.src = mapa.video;
+            video.autoplay = true;
+            video.muted = true;
+            video.defaultMuted = true;
+            video.loop = true;
+            video.playsInline = true;
+            video.preload = "metadata";
+
+            if (mapa.imagen) {
+                video.poster = mapa.imagen;
+            }
+
+            video.addEventListener(
+                "error",
+                () => {
+                    observadorVideos.unobserve(video);
+                    video.remove();
+
+                    contenedor.classList.add(
+                        "imagen-pendiente"
+                    );
+
+                    contenedor.textContent =
+                        "Video unavailable";
+                },
+                { once: true }
+            );
+
+            contenedor.appendChild(video);
+            observadorVideos.observe(video);
+
+        } else if (mapa.imagen) {
+            const imagen =
+                document.createElement("img");
+
+            imagen.src = mapa.imagen;
+
+            imagen.alt = mapa.nombre
+                ? `Komorebi map — ${mapa.nombre}`
+                : `Komorebi map — ${mapa.ubicacion || "Archive"}`;
+
+            imagen.loading = "lazy";
+            imagen.decoding = "async";
+
+            imagen.addEventListener(
+                "error",
+                () => {
+                    imagen.remove();
+
+                    contenedor.classList.add(
+                        "imagen-pendiente"
+                    );
+
+                    contenedor.textContent =
+                        "Map unavailable";
+                },
+                { once: true }
+            );
+
+            contenedor.appendChild(imagen);
+        }
+
+        tarjeta.appendChild(contenedor);
+
+        if (mapa.imagen || mapa.video) {
+            tarjeta.appendChild(
+                crearOverlay(mapa)
+            );
+        }
+
+        return tarjeta;
+    }
 
     // =====================================
     // CREAR COLUMNAS
@@ -392,9 +731,8 @@ function crearTarjeta(mapa) {
         const columnas = [];
 
         for (let i = 0; i < cantidad; i++) {
-            const columna = document.createElement(
-                "div"
-            );
+            const columna =
+                document.createElement("div");
 
             columna.className = "columna-mapas";
 
@@ -405,9 +743,8 @@ function crearTarjeta(mapa) {
         return columnas;
     }
 
-
     // =====================================
-    // CANTIDAD DE COLUMNAS
+    // NÚMERO DE COLUMNAS
     // =====================================
 
     function obtenerNumeroColumnas() {
@@ -419,7 +756,6 @@ function crearTarjeta(mapa) {
 
         return 4;
     }
-
 
     // =====================================
     // FILTRAR MAPAS
@@ -438,12 +774,10 @@ function crearTarjeta(mapa) {
                 return territorio === filtro;
             });
 
-        return resultado.sort((a, b) => {
-            return new Date(b.fecha) -
-                new Date(a.fecha);
-        });
+        return resultado.sort((a, b) =>
+            new Date(b.fecha) - new Date(a.fecha)
+        );
     }
-
 
     // =====================================
     // RENDERIZAR GALERÍA
@@ -456,69 +790,77 @@ function crearTarjeta(mapa) {
 
         observadorVideos.disconnect();
 
-galeria.querySelectorAll("video").forEach(video => {
-    video.pause();
-});
+        galeria.querySelectorAll(
+            "video"
+        ).forEach(video => video.pause());
 
         galeria.replaceChildren();
 
-        const resultados = obtenerMapasFiltrados(
-            filtroActual
-        );
+        const resultados =
+            obtenerMapasFiltrados(filtroActual);
 
         if (mensajeVacio) {
-            mensajeVacio.hidden = resultados.length > 0;
+            mensajeVacio.hidden =
+                resultados.length > 0;
+
+            if (resultados.length === 0) {
+                if (cargando) {
+                    mensajeVacio.textContent =
+                        "Loading territories…";
+                } else if (errorCarga) {
+                    mensajeVacio.textContent =
+                        "Unable to load the public archive.";
+                } else {
+                    mensajeVacio.textContent =
+                        "No territories published yet.";
+                }
+            }
         }
 
-        if (resultados.length === 0) {
-            return;
-        }
+        if (resultados.length === 0) return;
 
-        const numeroColumnas =
-            obtenerNumeroColumnas();
-
-        const columnas = crearColumnas(
-            numeroColumnas
-        );
+        const columnas =
+            crearColumnas(obtenerNumeroColumnas());
 
         resultados.forEach((mapa, indice) => {
-            const columna = columnas[
-                indice % numeroColumnas
-            ];
-
-            columna.appendChild(
+            columnas[
+                indice % columnas.length
+            ].appendChild(
                 crearTarjeta(mapa)
             );
         });
     }
 
-
     // =====================================
-    // ACTIVAR FILTROS
+    // FILTROS
     // =====================================
 
     filtros.forEach(boton => {
-        boton.addEventListener("click", () => {
-            filtroActual = boton.dataset.filtro;
+        boton.addEventListener(
+            "click",
+            () => {
+                filtroActual =
+                    boton.dataset.filtro;
 
-            filtros.forEach(filtro => {
-                const activo = filtro === boton;
+                filtros.forEach(filtro => {
+                    const activo =
+                        filtro === boton;
 
-                filtro.classList.toggle(
-                    "activo",
-                    activo
-                );
+                    filtro.classList.toggle(
+                        "activo",
+                        activo
+                    );
 
-                filtro.setAttribute(
-                    "aria-pressed",
-                    String(activo)
-                );
-            });
+                    filtro.setAttribute(
+                        "aria-pressed",
+                        String(activo)
+                    );
+                });
 
-            renderizarGaleria();
-        });
+                renderizarGaleria();
+            }
+        );
     });
-
 
     // =====================================
     // RESPONSIVE
@@ -527,21 +869,41 @@ galeria.querySelectorAll("video").forEach(video => {
     let columnasActuales =
         obtenerNumeroColumnas();
 
-    window.addEventListener("resize", () => {
-        const nuevasColumnas =
-            obtenerNumeroColumnas();
+    window.addEventListener(
+        "resize",
+        () => {
+            const nuevasColumnas =
+                obtenerNumeroColumnas();
 
-        if (nuevasColumnas !== columnasActuales) {
-            columnasActuales = nuevasColumnas;
-            renderizarGaleria();
+            if (
+                nuevasColumnas !==
+                columnasActuales
+            ) {
+                columnasActuales =
+                    nuevasColumnas;
+
+                renderizarGaleria();
+            }
         }
-    });
+    );
 
+    // =====================================
+    // RECARGAR AL VOLVER
+    // =====================================
+
+    window.addEventListener(
+        "pageshow",
+        evento => {
+            if (evento.persisted) {
+                cargarMapas();
+            }
+        }
+    );
 
     // =====================================
     // INICIALIZACIÓN
     // =====================================
 
-    renderizarGaleria();
+    cargarMapas();
 
 })();
